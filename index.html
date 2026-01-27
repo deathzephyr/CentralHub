@@ -1,0 +1,1228 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>LDX | CentralHub</title>
+    <link rel="icon" type="image/png" href="img.png">
+    
+    <!-- Fontes Google -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- DESIGN SYSTEM --- */
+        :root {
+            --bg-dark: #050507;
+            --glass-bg: rgba(20, 20, 25, 0.6); 
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --accent-primary: #8b5cf6; 
+            --accent-secondary: #ec4899; 
+            --accent-cyan: #06b6d4; 
+            --text-main: #ffffff;
+            --text-muted: #94a3b8;
+            --gradient-primary: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            --shadow-card: 0 10px 30px -5px rgba(0, 0, 0, 0.5);
+            
+            /* Cores das Marcas Existentes */
+            --color-google: #EA4335;
+            --color-youtube: #FF0000;
+            --color-bing: #008373;
+            --color-amazon: #FF9900;
+            --color-reddit: #FF4500;
+            --color-wiki: #FFFFFF;
+            --color-spotify: #1DB954;
+
+            /* Cores das Novas Marcas */
+            --color-shopee: #ee4d2d;   
+            --color-discord: #5865F2;  
+            --color-whatsapp: #25D366; 
+            --color-tiktok: #ff0050;   
+            --color-netflix: #E50914;  /* Vermelho Netflix */
+            --color-globo: #00AEEF;    /* Azul Globo */
+            --color-uol: #0054A6;      /* Azul UOF */
+
+            /* Cores de Categorias */
+            --color-gov: #facc15;      
+            --color-banking: #008373;  
+            --color-shop: #ff6b00;     
+            --color-media: #ec4899;   
+            --color-social: #ffffff;  
+            --color-cloud: #008373;   
+            --color-ed: #22c55e;      
+            --color-news: #3b82f6;    
+            --color-music: #1DB954;
+            --color-health: #ef4444;   /* Vermelho Saúde */
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; outline: none; -webkit-tap-highlight-color: transparent; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        h1, h2, h3, .logo { font-family: 'Space Grotesk', sans-serif; }
+
+        /* --- BACKGROUND --- */
+        .ambient-light {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(90px);
+            opacity: 0.4;
+            animation: floatOrb 25s infinite alternate ease-in-out;
+        }
+
+        .orb-1 { width: 500px; height: 500px; background: var(--color-gov); top: -150px; left: -150px; animation-duration: 30s; }
+        .orb-2 { width: 600px; height: 600px; background: var(--accent-primary); bottom: -150px; right: -150px; animation-duration: 35s; animation-delay: -5s; }
+        .orb-3 { width: 350px; height: 350px; background: var(--accent-cyan); top: 40%; left: 50%; transform: translate(-50%, -50%); opacity: 0.25; animation: pulseOrb 12s infinite ease-in-out; }
+
+        @keyframes floatOrb { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(60px, 90px) scale(1.1); } }
+        @keyframes pulseOrb { 0%, 100% { opacity: 0.2; transform: translate(-50%, -50%) scale(0.9); } 50% { opacity: 0.35; transform: translate(-50%, -50%) scale(1.1); } }
+
+        .container { max-width: 1400px; margin: 0 auto; padding: 0 2rem; position: relative; z-index: 1; padding-bottom: 2rem; }
+
+        /* --- HEADER --- */
+        header { display: flex; justify-content: space-between; align-items: center; padding: 2rem 0; position: relative; }
+        .logo { font-size: 1.6rem; font-weight: 700; background: linear-gradient(to right, #fff, #cbd5e1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: flex; align-items: center; gap: 12px; text-shadow: 0 0 30px rgba(255,255,255,0.1); }
+        
+        /* Área de controles do topo */
+        .header-controls { display: flex; align-items: center; gap: 12px; }
+        
+        .clock { background: rgba(20, 20, 25, 0.8); border: 1px solid rgba(255,255,255,0.15); padding: 8px 18px; border-radius: 100px; font-family: 'Space Grotesk', monospace; font-size: 0.9rem; color: var(--accent-cyan); backdrop-filter: blur(20px); box-shadow: 0 0 20px rgba(6, 182, 212, 0.15); font-weight: 600; letter-spacing: 1px; }
+
+        .header-btn-wrapper { position: relative; flex-shrink: 0; }
+        
+        .header-btn {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 50%;
+            width: 44px; height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .header-btn:hover { background: rgba(255,255,255,0.1); color: white; }
+        .header-btn i { font-size: 1.1rem; }
+
+        .header-dropdown {
+            position: absolute;
+            top: 120%; right: 0;
+            background: rgba(15, 15, 20, 0.98);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            padding: 6px;
+            width: 160px;
+            display: none; 
+            flex-direction: column;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: all 0.2s ease;
+            z-index: 1000;
+        }
+        .header-dropdown.active { display: flex; opacity: 1; transform: translateY(0); }
+
+        .dropdown-option {
+            padding: 10px 14px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: 0.2s;
+            cursor: pointer;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+        
+        /* --- CORES ESPECÍFICAS PARA OS FILTROS --- */
+        #catDropdown .dropdown-option[data-cat-filter="gov"] { color: var(--color-gov); }
+        #catDropdown .dropdown-option[data-cat-filter="banking"] { color: var(--color-banking); }
+        #catDropdown .dropdown-option[data-cat-filter="shop"] { color: var(--color-shop); }
+        #catDropdown .dropdown-option[data-cat-filter="media"] { color: #ec4899; }
+        #catDropdown .dropdown-option[data-cat-filter="social"] { color: #ffffff; }
+        #catDropdown .dropdown-option[data-cat-filter="cloud"] { color: #008373; }
+        #catDropdown .dropdown-option[data-cat-filter="ed"] { color: #22c55e; }
+        #catDropdown .dropdown-option[data-cat-filter="health"] { color: var(--color-health); }
+
+        .dropdown-option:hover { background: rgba(255,255,255,0.08); transform: translateX(2px); }
+        .dropdown-option.selected { background: rgba(255,255,255,0.05); color: inherit !important; font-weight: 700; }
+
+        /* --- HERO --- */
+        .hero { text-align: center; margin: 3rem 0 2rem; position: relative; }
+        
+        /* Animação de Cores no Título */
+        @keyframes colorCycle {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .hero h1 { 
+            font-size: 3.8rem; font-weight: 700; line-height: 1.05; margin-bottom: 1rem;
+            background: linear-gradient(90deg, #facc15, #8b5cf6, #ec4899, #06b6d4, #22c55e, #ef4444, #f59e0b, #ffffff, #facc15);
+            background-size: 300% auto;
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent;
+            animation: colorCycle 6s linear infinite;
+            letter-spacing: -2px; 
+            filter: drop-shadow(0 0 30px rgba(0,0,0,0.5)); 
+        }
+        
+        .hero p { color: var(--text-muted); font-size: 1.05rem; max-width: 550px; margin: 0 auto 2.5rem; padding: 0 10px; font-weight: 400; }
+
+        /* --- BARRA DE PESQUISA --- */
+        .search-wrapper { position: relative; max-width: 700px; margin: 0 auto; z-index: 100; width: 100%; }
+        
+        .search-bar { 
+            position: relative; display: flex; align-items: center; 
+            background: rgba(20, 20, 25, 0.7); 
+            border: 1px solid var(--glass-border); 
+            border-radius: 28px; 
+            padding: 6px; 
+            backdrop-filter: blur(40px); 
+            box-shadow: 0 0 0 1px rgba(255,255,255,0.05), 0 20px 50px -12px rgba(0,0,0,0.6); 
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); 
+            overflow: visible;
+        }
+
+        .search-bar:focus-within { 
+            background: rgba(25, 25, 30, 0.85); 
+            border-color: rgba(139, 92, 246, 0.4); 
+            box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.1), 0 30px 60px -12px rgba(0,0,0,0.8), 0 0 40px rgba(139, 92, 246, 0.15); 
+            transform: translateY(-2px); 
+        }
+
+        /* Seletor de Motor */
+        .engine-selector { position: relative; margin-right: 5px; flex-shrink: 0; }
+        
+        .engine-btn {
+            background: rgba(255,255,255,0.03);
+            border: none;
+            border-radius: 22px;
+            height: 48px;
+            padding: 0 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-main);
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+            font-size: 0.95rem;
+            white-space: nowrap;
+        }
+        
+        .engine-btn:hover { background: rgba(255,255,255,0.08); }
+        .engine-btn i { font-size: 1.1rem; transition: color 0.3s; }
+        
+        /* Dropdown */
+        .engine-dropdown {
+            position: absolute;
+            top: 120%; left: 0;
+            background: rgba(15, 15, 20, 0.98);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 6px;
+            width: 180px;
+            display: none; 
+            flex-direction: column;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: all 0.2s ease;
+            max-height: 320px;
+            overflow-y: auto;
+            z-index: 101;
+        }
+        
+        .engine-dropdown::-webkit-scrollbar { width: 6px; }
+        .engine-dropdown::-webkit-scrollbar-track { background: transparent; }
+        .engine-dropdown::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 3px; }
+        .engine-dropdown::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.3); }
+
+        .engine-dropdown.active { display: flex; opacity: 1; transform: translateY(0); }
+        
+        .engine-option {
+            padding: 10px 14px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: 0.2s;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+        
+        .engine-option:hover { background: rgba(255,255,255,0.08); color: white; }
+        .engine-option.selected { background: rgba(255,255,255,0.05); color: white; font-weight: 500; }
+        
+        /* Cores dos Ícones de Busca */
+        .icon-google { color: var(--color-google); }
+        .icon-youtube { color: var(--color-youtube); }
+        .icon-bing { color: var(--color-bing); }
+        .icon-ddg { color: var(--color-banking); } 
+        .icon-amazon { color: var(--color-amazon); }
+        .icon-reddit { color: var(--color-reddit); }
+        .icon-wiki { color: var(--color-wiki); }
+        .icon-spotify { color: var(--color-spotify); }
+
+        /* Input */
+        .search-input-container { flex: 1; position: relative; }
+        .search-input { 
+            width: 100%; background: transparent; border: none; 
+            padding: 16px 10px; font-size: 1.15rem; color: white; 
+            font-family: 'Space Grotesk', sans-serif; font-weight: 500; 
+        }
+        .search-input::placeholder { color: rgba(255,255,255,0.25); }
+
+        /* Botões de Ação */
+        .action-btns { display: flex; align-items: center; gap: 8px; padding-right: 6px; flex-shrink: 0; }
+
+        .btn-icon {
+            width: 44px; height: 44px;
+            border-radius: 50%;
+            border: none;
+            background: transparent;
+            color: var(--text-muted);
+            cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .btn-icon:hover { background: rgba(255,255,255,0.08); color: white; transform: scale(1.05); }
+
+        .btn-mic.listening { 
+            color: var(--color-google); 
+            animation: pulseMic 1.5s infinite; 
+        }
+        
+        @keyframes pulseMic {
+            0% { box-shadow: 0 0 0 0 rgba(234, 67, 53, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(234, 67, 53, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(234, 67, 53, 0); }
+        }
+
+        .btn-submit { 
+            background: var(--gradient-primary); 
+            color: white; 
+            box-shadow: 0 4px 15px rgba(236, 72, 153, 0.3);
+        }
+        .btn-submit:hover { 
+            transform: scale(1.05) rotate(-10deg); 
+            box-shadow: 0 8px 25px rgba(236, 72, 153, 0.5); 
+        }
+
+        /* Histórico */
+        .search-history {
+            position: absolute;
+            top: 110%; left: 60px; right: 60px;
+            background: rgba(15, 15, 20, 0.95);
+            backdrop-filter: blur(25px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 8px 0;
+            display: none;
+            flex-direction: column;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+            z-index: 99;
+        }
+        .search-history.active { display: flex; animation: slideDown 0.2s ease-out; }
+        
+        .history-item {
+            padding: 10px 20px;
+            display: flex; align-items: center; gap: 12px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: 0.2s;
+            cursor: pointer;
+        }
+        .history-item:hover { background: rgba(255,255,255,0.05); color: white; padding-left: 25px; }
+        .history-item i { font-size: 0.8rem; }
+
+        .history-label {
+            padding: 5px 20px;
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.4);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* --- GRID & SEÇÕES --- */
+        .bento-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(145px, 1fr)); gap: 16px; padding-bottom: 5rem; transition: all 0.3s ease; }
+        
+        .section-header { 
+            grid-column: 1 / -1; 
+            display: flex; 
+            align-items: center; 
+            gap: 1rem; 
+            margin: 2.5rem 0 1.5rem 0; 
+            padding-bottom: 0.5rem; 
+            border-bottom: 1px solid rgba(255,255,255,0.08); 
+        }
+        
+        .section-title { font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; white-space: nowrap; display: flex; align-items: center; gap: 10px; }
+        .section-line { height: 1px; width: 100%; background: linear-gradient(to right, rgba(255,255,255,0.2), transparent); }
+
+        /* Cores das Seções (Linhas e Títulos) */
+        .header-gov .section-title { color: var(--color-gov); } .header-gov .section-line { background: linear-gradient(to right, var(--color-gov), transparent); }
+        .header-banking .section-title { color: var(--color-banking); } .header-banking .section-line { background: linear-gradient(to right, var(--color-banking), transparent); }
+        .header-shop .section-title { color: var(--color-shop); } .header-shop .section-line { background: linear-gradient(to right, var(--color-shop), transparent); }
+        .header-media .section-title { color: #ec4899; } .header-media .section-line { background: linear-gradient(to right, #ec4899, transparent); }
+        .header-social .section-title { color: #ffffff; } .header-social .section-line { background: linear-gradient(to right, #ffffff, transparent); }
+        .header-cloud .section-title { color: #008373; } .header-cloud .section-line { background: linear-gradient(to right, #008373, transparent); }
+        .header-ed .section-title { color: #22c55e; } .header-ed .section-line { background: linear-gradient(to right, #22c55e, transparent); }
+        .header-news .section-title { color: var(--color-news); } .header-news .section-line { background: linear-gradient(to right, var(--color-news), transparent); }
+        .header-health .section-title { color: var(--color-health); } .header-health .section-line { background: linear-gradient(to right, var(--color-health), transparent); }
+        .header-music .section-title { color: var(--color-music); } .header-music .section-line { background: linear-gradient(to right, var(--color-music), transparent); }
+
+        /* --- CARDS --- */
+        .card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 20px;
+            text-decoration: none;
+            color: white;
+            position: relative;
+            overflow: hidden; 
+            transition: transform 0.1s linear, box-shadow 0.4s ease, border-color 0.3s ease, background 0.3s ease;
+            backdrop-filter: blur(25px);
+            height: 150px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            transform-style: preserve-3d;
+            will-change: transform;
+            cursor: pointer;
+        }
+        .card::after {
+            content: ""; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
+            background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0) 100%);
+            transform: skewX(-25deg); transition: 0.6s; pointer-events: none; 
+            z-index: 5; 
+        }
+        .card:hover::after { left: 150%; transition: 0.8s ease-in-out; }
+        .card:hover { background: rgba(30, 30, 35, 0.8); border-color: rgba(255,255,255, 0.4); }
+        
+        /* Animação de Clique (Shrink) */
+        .card.clicked {
+            transform: scale(0.95);
+            opacity: 0.8;
+            box-shadow: none;
+        }
+        
+        /* Animação Ripple */
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(0);
+            animation: ripple-anim 0.6s ease-out;
+            pointer-events: none;
+            z-index: 1; 
+        }
+
+        @keyframes ripple-anim {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+
+        .card-bg-icon { position: absolute; right: -10px; bottom: -10px; font-size: 5rem; opacity: 0.04; transform: rotate(-15deg); pointer-events: none; transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); z-index: 1; }
+        .card:hover .card-bg-icon { opacity: 0.08; transform: rotate(0deg) scale(1.2); }
+        
+        .card-content { 
+            position: relative; 
+            z-index: 20 !important; 
+            transform: translateZ(20px); 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            text-align: center; 
+            gap: 8px; 
+            width: 100%; 
+            justify-content: center; 
+            height: 100%; 
+            pointer-events: none; 
+        }
+
+        .card-icon { 
+            width: 42px; 
+            height: 42px; 
+            aspect-ratio: 1/1; 
+            border-radius: 6px; 
+            background: rgba(255,255,255,0.05); 
+            display: flex; justify-content: center; align-items: center; 
+            font-size: 1.1rem; 
+            border: 1px solid rgba(255,255,255,0.05); 
+            transition: all 0.3s ease; 
+            margin-bottom: 8px; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2); line-height: 0; 
+            position: relative; 
+            z-index: 10 !important;
+            flex-shrink: 0; 
+        }
+        .card-icon i { display: inline-flex; align-items: center; justify-content: center; margin: 0; vertical-align: middle; }
+        
+        .card-icon .fa-solid, .card-icon .fas {
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+        }
+        .card-icon .fa-brands, .card-icon .fab {
+            font-family: "Font Awesome 6 Brands";
+            font-weight: 400;
+        }
+
+        /* Ajustes Específicos de Ícones */
+        .card-icon .fa-scale-balanced { font-size: 1.3rem !important; }
+        .card-icon .fa-building-columns { font-size: 1.25rem !important; }
+        .card-icon .fa-bag-shopping { font-size: 1.2rem !important; }
+        .card-icon .fa-shield-cat { font-size: 1.3rem; }
+        .card-icon .fa-graduation-cap { font-size: 1.2rem !important; }
+        .card-icon .fa-brain { font-size: 1.25rem !important; }
+        .card-icon .fa-music { font-size: 1.25rem !important; }
+        .card-icon .fa-heart-pulse { font-size: 1.3rem !important; }
+        
+        /* Tamanhos específicos para marcas */
+        .card-icon .fa-globe { font-size: 1.25rem !important; transform: scale(1.1); } /* Globo */
+        .card-icon .fa-newspaper { font-size: 1.1rem !important; } /* UOL */
+
+        .card:hover .card-icon { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.3); transform: translateY(-3px) scale(1.05); box-shadow: 0 8px 15px rgba(0,0,0,0.3); }
+        .card h3 { font-size: 1rem; font-weight: 600; margin-bottom: 2px; letter-spacing: -0.3px; transition: transform 0.2s; }
+        .card:hover h3 { transform: translateY(-1px); }
+        .card p { font-size: 0.75rem; color: var(--text-muted); line-height: 1.3; font-weight: 500; }
+
+        /* Cores dos Cards (Hover) - Reutilizando variáveis de categoria */
+        .card[data-cat="gov"] .card-icon { color: var(--color-gov); text-shadow: 0 0 15px rgba(250, 204, 21, 0.2); }
+        .card[data-cat="gov"]:hover { box-shadow: 0 20px 40px -10px rgba(250, 204, 21, 0.3), 0 0 0 1px rgba(250, 204, 21, 0.1); border-color: rgba(250, 204, 21, 0.3); }
+
+        .card[data-cat="banking"] .card-icon { color: var(--color-banking); text-shadow: 0 0 15px rgba(0, 131, 115, 0.2); }
+        .card[data-cat="banking"]:hover { box-shadow: 0 20px 40px -10px rgba(0, 131, 115, 0.3), 0 0 0 1px rgba(0, 131, 115, 0.1); border-color: rgba(0, 131, 115, 0.3); }
+
+        .card[data-cat="shop"] .card-icon { color: var(--color-shop); text-shadow: 0 0 15px rgba(255, 107, 0, 0.2); }
+        .card[data-cat="shop"]:hover { box-shadow: 0 20px 40px -10px rgba(255, 107, 0, 0.3), 0 0 0 1px rgba(255, 107, 0, 0.1); border-color: rgba(255, 107, 0, 0.3); }
+
+        .card[data-cat="media"] .card-icon { color: #ec4899; text-shadow: 0 0 15px rgba(236, 72, 153, 0.2); }
+        .card[data-cat="media"]:hover { box-shadow: 0 20px 40px -10px rgba(236, 72, 153, 0.3), 0 0 0 1px rgba(236, 72, 153, 0.1); border-color: rgba(236, 72, 153, 0.3); }
+
+        .card[data-cat="social"] .card-icon { color: #ffffff; text-shadow: 0 0 15px rgba(255, 255, 255, 0.15); }
+        .card[data-cat="social"]:hover { box-shadow: 0 20px 40px -10px rgba(255, 255, 255, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.1); border-color: rgba(255, 255, 255, 0.3); }
+
+        .card[data-cat="cloud"] .card-icon { color: #008373; text-shadow: 0 0 15px rgba(0, 131, 115, 0.2); }
+        .card[data-cat="cloud"]:hover { box-shadow: 0 20px 40px -10px rgba(0, 131, 115, 0.3), 0 0 0 1px rgba(0, 131, 115, 0.1); border-color: rgba(0, 131, 115, 0.3); }
+
+        .card[data-cat="ed"] .card-icon { color: #22c55e; text-shadow: 0 0 15px rgba(34,197, 94, 0.2); }
+        .card[data-cat="ed"]:hover { box-shadow: 0 20px 40px -10px rgba(34,197, 94, 0.3), 0 0 0 1px rgba(34,197, 94, 0.1); border-color: rgba(34,197, 94, 0.3); }
+
+        .card[data-cat="news"] .card-icon { color: var(--color-news); text-shadow: 0 0 15px rgba(59, 130, 246, 0.2); }
+        .card[data-cat="news"]:hover { box-shadow: 0 20px 40px -10px rgba(59, 130, 246, 0.3), 0 0 0 1px rgba(59, 130, 246, 0.1); border-color: rgba(59, 130, 246, 0.3); }
+
+        .card[data-cat="health"] .card-icon { color: var(--color-health); text-shadow: 0 0 15px rgba(239, 68, 68, 0.2); }
+        .card[data-cat="health"]:hover { box-shadow: 0 20px 40px -10px rgba(239, 68, 68, 0.3), 0 0 0 1px rgba(239, 68, 68, 0.1); border-color: rgba(239, 68, 68, 0.3); }
+
+        .card[data-cat="music"] .card-icon { color: var(--color-music); text-shadow: 0 0 15px rgba(29, 185, 84, 0.2); }
+        .card[data-cat="music"]:hover { box-shadow: 0 20px 40px -10px rgba(29, 185, 84, 0.3), 0 0 0 1px rgba(29, 185, 84, 0.1); border-color: rgba(29, 185, 84, 0.3); }
+
+        /* Cores Específicas para Ícones (Forçar) */
+        .icon-discord { color: var(--color-discord); }
+        .icon-whatsapp { color: var(--color-whatsapp); }
+        .icon-shopee { color: var(--color-shopee); }
+        .icon-receita { color: var(--color-gov) !important; } /* Força amarelo */
+        .icon-netflix { color: var(--color-netflix); } /* Vermelho Netflix */
+        .icon-tiktok { color: var(--color-tiktok); } /* Rosa TikTok */
+        .icon-globo { color: var(--color-globo); } /* Azul Globo */
+        .icon-uol { color: var(--color-uol); } /* Azul UOL */
+
+        /* --- FOOTER --- */
+        footer { 
+            text-align: center; 
+            padding: 2rem 0; 
+            color: var(--text-muted); 
+            border-top: 1px solid var(--glass-border); 
+            margin-top: 3rem; 
+            font-size: 0.8rem; 
+            letter-spacing: 0.5px; 
+            position: relative; 
+            z-index: 2; 
+            background: transparent; 
+        }
+
+        /* --- MOBILE --- */
+        @media (max-width: 600px) { 
+            .hero h1 { font-size: 2.4rem; } 
+            .container { padding: 0 1rem; } 
+            
+            .search-wrapper { width: 100%; padding: 0; }
+            .engine-btn {
+                width: 44px; padding: 0; justify-content: center; border-radius: 50%; margin-right: 5px;
+            }
+            #currentEngineName, .engine-btn .fa-chevron-down { display: none !important; }
+
+            .engine-dropdown { width: 100%; left: 0; top: 130%; border-radius: 12px; max-height: 40vh; }
+
+            .search-input { font-size: 1rem; padding: 12px 8px; }
+            .btn-icon { width: 40px; height: 40px; }
+            .btn-mic { margin-right: 4px; }
+            .search-history { left: 5px; right: 5px; border-radius: 12px; }
+            .history-item { padding: 12px 15px; font-size: 0.95rem; }
+
+            .bento-grid { gap: 12px; grid-template-columns: repeat(2, 1fr); }
+            
+            .card { height: 140px; padding: 15px; }
+            .card-icon { width: 38px; height: 38px; font-size: 1rem; }
+            .card h3 { font-size: 0.95rem; }
+            .card p { font-size: 0.7rem; }
+            
+            .dropdown-option[data-cols="auto"] { display: none !important; }
+        }
+        
+        @media (min-width: 601px) {
+            .dropdown-option[data-cols="2"],
+            .dropdown-option[data-cols="3"] { display: none; }
+        }
+
+        /* 5 Colunas (Compactada) */
+        .bento-grid.cols-5 { gap: 8px; }
+        .bento-grid.cols-5 .card { height: 110px; padding: 8px; }
+        .bento-grid.cols-5 .card-icon { width: 26px; height: 26px; font-size: 0.75rem; margin-bottom: 4px; padding: 0; }
+        .bento-grid.cols-5 .card h3 { font-size: 0.65rem; line-height: 1.1; margin: 0; }
+        .bento-grid.cols-5 .card p { display: none; }
+        .bento-grid.cols-5 .card-bg-icon { display: none; }
+    </style>
+</head>
+<body>
+
+    <div class="ambient-light">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+    </div>
+
+    <div class="container">
+        <header>
+            <div class="logo"><i class="fa-solid fa-globe"></i> LDX</div>
+            
+            <!-- Controles do Header -->
+            <div class="header-controls">
+                
+                <!-- Botão de Controle de Grid -->
+                <div class="header-btn-wrapper">
+                    <button class="header-btn" id="gridBtn" title="Layout">
+                        <i class="fa-solid fa-border-all"></i>
+                    </button>
+                    <div class="header-dropdown" id="gridDropdown">
+                        <div class="dropdown-option" data-cols="auto">Padrão (Auto)</div>
+                        <div class="dropdown-option" data-cols="2">2 Colunas</div>
+                        <div class="dropdown-option" data-cols="3">3 Colunas</div>
+                        <div class="dropdown-option" data-cols="5">5 Colunas</div>
+                    </div>
+                </div>
+                
+                <!-- Botão de Controle de Categorias -->
+                <div class="header-btn-wrapper">
+                    <button class="header-btn" id="catBtn" title="Filtrar Categoria">
+                        <i class="fa-solid fa-filter"></i>
+                    </button>
+                    <div class="header-dropdown" id="catDropdown">
+                        <div class="dropdown-option selected" data-cat-filter="all">Todos</div>
+                        <div class="dropdown-option" data-cat-filter="gov">Governo</div>
+                        <div class="dropdown-option" data-cat-filter="banking">Finanças</div>
+                        <div class="dropdown-option" data-cat-filter="shop">Lojas</div>
+                        <div class="dropdown-option" data-cat-filter="media">Mídia</div>
+                        <div class="dropdown-option" data-cat-filter="social">Redes Sociais</div>
+                        <div class="dropdown-option" data-cat-filter="cloud">Cloud</div>
+                        <div class="dropdown-option" data-cat-filter="ed">Educação</div>
+                        <div class="dropdown-option" data-cat-filter="health">Saúde</div>
+                    </div>
+                </div>
+
+                <div class="clock" id="clock">00:00</div>
+            </div>
+        </header>
+
+        <section class="hero">
+            <h1>
+                CentralHub.
+            </h1>
+            <p>Seu hub definitivo de serviços digitais oficiais.</p>
+            
+            <div class="search-wrapper">
+                <!-- Barra de Pesquisa -->
+                <div class="search-bar">
+                    <!-- Seletor de Motor -->
+                    <div class="engine-selector">
+                        <button class="engine-btn" id="engineBtn" title="Trocar Motor de Busca">
+                            <i class="fa-brands fa-google icon-google" id="currentEngineIcon"></i>
+                            <span id="currentEngineName">Google</span>
+                            <i class="fa-solid fa-chevron-down" style="font-size: 0.7rem; margin-left: 4px; opacity: 0.5;"></i>
+                        </button>
+                        <div class="engine-dropdown" id="engineDropdown">
+                            <div class="engine-option selected" data-engine="google"><i class="fa-brands fa-google icon-google"></i> Google</div>
+                            <div class="engine-option" data-engine="bing"><i class="fa-brands fa-microsoft icon-bing"></i> Bing</div>
+                            <div class="engine-option" data-engine="duckduckgo"><i class="fa-solid fa-shield-cat icon-ddg"></i> DuckDuckGo</div>
+                            <div class="engine-option" data-engine="youtube"><i class="fa-brands fa-youtube icon-youtube"></i> YouTube</div>
+                            <div class="engine-option" data-engine="spotify"><i class="fa-brands fa-spotify icon-spotify"></i> Spotify</div>
+                            <div class="engine-option" data-engine="reddit"><i class="fa-brands fa-reddit icon-reddit"></i> Reddit</div>
+                            <div class="engine-option" data-engine="amazon"><i class="fa-brands fa-amazon icon-amazon"></i> Amazon</div>
+                            <div class="engine-option" data-engine="wikipedia"><i class="fa-brands fa-wikipedia-w icon-wiki"></i> Wikipedia</div>
+                        </div>
+                    </div>
+
+                    <!-- Input -->
+                    <form class="search-input-container" id="searchForm">
+                        <input type="text" class="search-input" placeholder="Pesquisar..." id="searchInput" autocomplete="off">
+                    </form>
+
+                    <!-- Botões -->
+                    <div class="action-btns">
+                        <button class="btn-icon btn-mic" id="voiceBtn" title="Pesquisa por Voz"><i class="fa-solid fa-microphone"></i></button>
+                        <button type="submit" form="searchForm" class="btn-icon btn-submit" title="Pesquisar"><i class="fa-solid fa-arrow-right"></i></button>
+                    </div>
+                </div>
+
+                <!-- Dropdown de Histórico -->
+                <div class="search-history" id="searchHistory">
+                    <div class="history-label">Recentes</div>
+                    <div id="historyList">
+                        <!-- Itens inseridos via JS -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="bento-grid" id="bentoGrid">
+            
+            <!-- SEÇÃO: GOVERNO -->
+            <div class="section-header header-gov">
+                <div class="section-title"><i class="fa-solid fa-scale-balanced"></i> Governo & Serviços</div>
+                <div class="section-line"></div>
+            </div>
+
+            <a href="https://www.gov.br/" target="_blank" class="card" data-cat="gov">
+                <div class="card-content"><div class="card-icon"><i class="fa-solid fa-scale-balanced"></i></div><h3>Gov.br</h3><p>Portal Brasil</p></div><i class="fa-solid fa-scale-balanced card-bg-icon"></i>
+            </a>
+            <a href="https://www.receita.fazenda.gov.br/" target="_blank" class="card" data-cat="gov">
+                <div class="card-content"><div class="card-icon icon-receita"><i class="fa-solid fa-building-columns"></i></div><h3>Receita Federal</h3><p>Tesouro Nacional</p></div><i class="fa-solid fa-building-columns card-bg-icon"></i>
+            </a>
+            <a href="https://www.bcb.gov.br/" target="_blank" class="card" data-cat="gov">
+                <div class="card-content"><div class="card-icon"><i class="fa-solid fa-money-bill-wave"></i></div><h3>Banco Central</h3><p>Banco do Brasil</p></div><i class="fa-solid fa-money-bill-wave card-bg-icon"></i>
+            </a>
+            <a href="https://www.caixa.gov.br/" target="_blank" class="card" data-cat="gov">
+                <div class="card-content"><div class="card-icon"><i class="fa-solid fa-coins"></i></div><h3>Caixa Econômica</h3><p>Governo Federal</p></div><i class="fa-solid fa-coins card-bg-icon"></i>
+            </a>
+
+            <!-- SEÇÃO: BANCOS & FINANÇAS -->
+            <div class="section-header header-banking">
+                <div class="section-title"><i class="fa-solid fa-building-columns"></i> Bancos & Finanças</div>
+                <div class="section-line"></div>
+            </div>
+
+            <a href="https://www.bb.com.br/" target="_blank" class="card" data-cat="banking">
+                <div class="card-content"><div class="card-icon"><i class="fa-solid fa-pen-to-square"></i></div><h3>Banco do Brasil</h3><p>Internet Banking</p></div><i class="fa-solid fa-pen-to-square card-bg-icon"></i>
+            </a>
+            <a href="https://nubank.com.br/" target="_blank" class="card" data-cat="banking">
+                <div class="card-content"><div class="card-icon"><i class="fa-solid fa-n"></i></div><h3>NuBank</h3><p>Banco Digital</p></div><i class="fa-solid fa-n card-bg-icon"></i>
+            </a>
+            <a href="https://santander.com.br/" target="_blank" class="card" data-cat="banking">
+                <div class="card-content"><div class="card-icon"><i class="fa-solid fa-s"></i></div><h3>Santander</h3><p>Cartão Crédito</p></div><i class="fa-solid fa-s card-bg-icon"></i>
+            </a>
+            <a href="https://inter.co/" target="_blank" class="card" data-cat="banking">
+                <div class="card-content"><div class="card-icon"><i class="fa-solid fa-i"></i></div><h3>Banco Inter</h3><p>Investimentos</p></div><i class="fa-solid fa-i card-bg-icon"></i>
+            </a>
+            <a href="https://www.bradesco.com.br/" target="_blank" class="card" data-cat="banking">
+                <div class="card-content"><div class="card-icon"><i class="fa-solid fa-user-tie"></i></div><h3>Bradesco</h3><p>Cartão de Crédito</p></div><i class="fa-solid fa-user-tie card-bg-icon"></i>
+            </a>
+
+            <!-- SEÇÃO: SHOPPING & MARCAS -->
+            <div class="section-header header-shop">
+                <div class="section-title"><i class="fa-solid fa-shopping-bag"></i> Lojas & Marcas</div>
+                <div class="section-line"></div>
+            </div>
+
+            <a href="https://www.amazon.com.br/" target="_blank" class="card" data-cat="shop">
+                <div class="card-content"><div class="card-icon"><i class="fa-brands fa-amazon"></i></div><h3>Amazon</h3><p>Tudo pra você</p></div><i class="fa-brands fa-amazon card-bg-icon"></i>
+            </a>
+            <a href="https://www.magazineluiza.com.br/" target="_blank" class="card" data-cat="shop">
+                <div class="card-content"><div class="card-icon"><i class="fa-solid fa-m"></i></div><h3>Magalu</h3><p>Livros & Quadrinhos</p></div><i class="fa-solid fa-m card-bg-icon"></i>
+            </a>
+            <a href="https://www.americanas.com.br/" target="_blank" class="card" data-cat="shop">
+                <div class="card-content"><div class="card-icon"><i class="fa-solid fa-ghost"></i></div><h3>Americanas</h3><p>Wholesale</p></div><i class="fa-solid fa-ghost card-bg-icon"></i>
+            </a>
+            <a href="https://www.shopee.com.br/" target="_blank" class="card" data-cat="shop">
+                <div class="card-content"><div class="card-icon icon-shopee"><i class="fa-solid fa-bag-shopping"></i></div><h3>Shopee</h3><p>Grandes Marcas</p></div><i class="fa-solid fa-bag-shopping card-bg-icon"></i>
+            </a>
+
+            <!-- SEÇÃO: MÍDIA & STREAMING -->
+            <div class="section-header header-media">
+                <div class="section-title"><i class="fa-solid fa-play-circle"></i> Mídia & Streaming</div>
+                <div class="section-line"></div>
+            </div>
+
+            <a href="https://www.netflix.com.br/" target="_blank" class="card" data-cat="media">
+                <div class="card-content"><div class="card-icon icon-netflix"><i class="fa-brands fa-netflix"></i></div><h3>Netflix</h3><p>Filmes & Séries</p></div><i class="fa-brands fa-netflix card-bg-icon"></i>
+            </a>
+            <a href="https://www.youtube.com/" target="_blank" class="card" data-cat="media">
+                <div class="card-content"><div class="card-icon"><i class="fa-brands fa-youtube"></i></div><h3>YouTube</h3><p>Vídeos</p></div><i class="fa-brands fa-youtube card-bg-icon"></i>
+            </a>
+            <a href="https://www.primevideo.com.br/" target="_blank" class="card" data-cat="media">
+                <div class="card-content"><div class="card-icon"><i class="fa-solid fa-play"></i></div><h3>Prime Video</h3><p>Programação TV</p></div><i class="fa-solid fa-play card-bg-icon"></i>
+            </a>
+            <a href="https://www.hbo.com/" target="_blank" class="card" data-cat="media">
+                <div class="card-content"><div class="card-icon"><i class="fa-solid fa-tv"></i></div><h3>HBO Max</h3><p>Filmes e TV</p></div><i class="fa-solid fa-tv card-bg-icon"></i>
+            </a>
+
+            <!-- SEÇÃO: SOCIAIS -->
+            <div class="section-header header-social">
+                <div class="section-title"><i class="fa-solid fa-share-nodes"></i> Redes Sociais</div>
+                <div class="section-line"></div>
+            </div>
+
+            <a href="https://www.instagram.com/" target="_blank" class="card" data-cat="social">
+                <div class="card-content"><div class="card-icon"><i class="fa-brands fa-instagram"></i></div><h3>Instagram</h3><p>Fotos e Stories</p></div><i class="fa-brands fa-instagram card-bg-icon"></i>
+            </a>
+            <a href="https://www.facebook.com/" target="_blank" class="card" data-cat="social">
+                <div class="card-content"><div class="card-icon"><i class="fa-brands fa-facebook"></i></div><h3>Facebook</h3><p>Amigos e Notícias</p></div><i class="fa-brands fa-facebook card-bg-icon"></i>
+            </a>
+            <a href="https://discord.com/" target="_blank" class="card" data-cat="social">
+                <div class="card-content"><div class="card-icon icon-discord"><i class="fa-brands fa-discord"></i></div><h3>Discord</h3><p>Comunidades</p></div><i class="fa-brands fa-discord card-bg-icon"></i>
+            </a>
+            <a href="https://web.whatsapp.com/" target="_blank" class="card" data-cat="social">
+                <div class="card-content"><div class="card-icon icon-whatsapp"><i class="fa-brands fa-whatsapp"></i></div><h3>WhatsApp</h3><p>Web</p></div><i class="fa-brands fa-whatsapp card-bg-icon"></i>
+            </a>
+            <a href="https://www.tiktok.com/" target="_blank" class="card" data-cat="social">
+                <div class="card-content"><div class="card-icon icon-tiktok"><i class="fa-brands fa-tiktok"></i></div><h3>TikTok</h3><p>Vídeos Curtos</p></div><i class="fa-brands fa-tiktok card-bg-icon"></i>
+            </a>
+
+            <!-- SEÇÃO: CLOUD -->
+            <div class="section-header header-cloud">
+                <div class="section-title"><i class="fa-solid fa-cloud"></i> Cloud & Desenvolvimento</div>
+                <div class="section-line"></div>
+            </div>
+
+            <a href="https://drive.google.com/" target="_blank" class="card" data-cat="cloud">
+                <div class="card-content"><div class="card-icon"><i class="fa-brands fa-google-drive"></i></div><h3>Google Drive</h3><p>Armazenamento Oficial</p></div><i class="fa-brands fa-google-drive card-bg-icon"></i>
+            </a>
+
+            <!-- SEÇÃO: EDUCAÇÃO -->
+            <div class="section-header header-ed">
+                <div class="section-title"><i class="fa-solid fa-graduation-cap"></i> Educação & Trabalho</div>
+                <div class="section-line"></div>
+            </div>
+
+            <a href="https://brainly.com" target="_blank" class="card" data-cat="ed">
+                <div class="card-content"><div class="card-icon"><i class="fa-solid fa-brain"></i></div><h3>Brainly</h3><p>Cursos</p></div><i class="fa-solid fa-brain card-bg-icon"></i>
+            </a>
+            <a href="https://duolingo.com/" target="_blank" class="card" data-cat="ed">
+                <div class="card-content"><div class="card-icon"><i class="fa-solid fa-graduation-cap"></i></div><h3>Duolingo</h3><p>Línguagens</p></div><i class="fa-solid fa-graduation-cap card-bg-icon"></i>
+            </a>
+            <a href="https://www.coursera.com/" target="_blank" class="card" data-cat="ed">
+                <div class="card-content"><div class="card-icon"><i class="fa-solid fa-school"></i></div><h3>Coursera</h3><p>Cursos</p></div><i class="fa-solid fa-school card-bg-icon"></i>
+            </a>
+
+            <!-- SEÇÃO: SAÚDE & BEM-ESTAR -->
+            <div class="section-header header-health">
+                <div class="section-title"><i class="fa-solid fa-heart-pulse"></i> Saúde & Bem-estar</div>
+                <div class="section-line"></div>
+            </div>
+
+            <a href="https://www.gov.br/saude" target="_blank" class="card" data-cat="health">
+                <div class="card-content"><div class="card-icon"><i class="fa-solid fa-heart-pulse"></i></div><h3>Saúde</h3><p>Ministério da Saúde</p></div><i class="fa-solid fa-heart-pulse card-bg-icon"></i>
+            </a>
+            <a href="https://conectesus-paciente.saude.gov.br/" target="_blank" class="card" data-cat="health">
+                <div class="card-content"><div class="card-icon"><i class="fa-solid fa-user-doctor"></i></div><h3>Conecte SUS</h3><p>Carteira Digital</p></div><i class="fa-solid fa-user-doctor card-bg-icon"></i>
+            </a>
+            <a href="https://www.gov.br/anvisa" target="_blank" class="card" data-cat="health">
+                <div class="card-content"><div class="card-icon"><i class="fa-solid fa-flask"></i></div><h3>Anvisa</h3><p>Vigilância Sanitária</p></div><i class="fa-solid fa-flask card-bg-icon"></i>
+            </a>
+
+            <!-- SEÇÃO: NOTÍCIAS -->
+            <div class="section-header header-news">
+                <div class="section-title"><i class="fa-solid fa-newspaper"></i> Notícias</div>
+                <div class="section-line"></div>
+            </div>
+
+            <a href="https://www.g1.globo.com/" target="_blank" class="card" data-cat="news">
+                <div class="card-content"><div class="card-icon icon-globo"><i class="fa-solid fa-globe"></i></div><h3>Globo</h3><p>Mundo</p></div><i class="fa-solid fa-globe card-bg-icon"></i>
+            </a>
+            <a href="https://folha.uol.com.br/" target="_blank" class="card" data-cat="news">
+                <div class="card-content"><div class="card-icon"><i class="fa-solid fa-newspaper"></i></div><h3>Folha</h3><p>Brazil</p></div><i class="fa-solid fa-newspaper card-bg-icon"></i>
+            </a>
+            <a href="https://www.uol.com.br/" target="_blank" class="card" data-cat="news">
+                <div class="card-content"><div class="card-icon icon-uol"><i class="fa-solid fa-newspaper"></i></div><h3>UOL</h3><p>Notícias</p></div><i class="fa-solid fa-newspaper card-bg-icon"></i>
+            </a>
+
+            <!-- SEÇÃO: NUVEM & MÚSICA -->
+            <div class="section-header header-music">
+                <div class="section-title"><i class="fa-solid fa-music"></i> Música & Streaming</div>
+                <div class="section-line"></div>
+            </div>
+
+            <a href="https://www.spotify.com/" target="_blank" class="card" data-cat="music">
+                <div class="card-content"><div class="card-icon"><i class="fa-brands fa-spotify"></i></div><h3>Spotify</h3><p>Streaming</p></div><i class="fa-brands fa-spotify card-bg-icon"></i>
+            </a>
+            <a href="https://www.deezer.com/" target="_blank" class="card" data-cat="music">
+                <div class="card-content"><div class="card-icon"><i class="fa-solid fa-wave-square"></i></div><h3>Deezer</h3><p>Música Grátis</p></div><i class="fa-solid fa-wave-square card-bg-icon"></i>
+            </a>
+
+        </div>
+
+        <footer>
+            <p>DESIGN BY LDX © 2026</p>
+        </footer>
+    </div>
+
+    <script>
+        /* --- RELÓGIO --- */
+        function updateClock() {
+            const now = new Date();
+            document.getElementById('clock').textContent = now.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+        }
+        setInterval(updateClock, 1000); updateClock();
+
+        /* --- SISTEMA DE PESQUISA E FILTRO --- */
+        
+        const engines = {
+            google: { name: 'Google', url: 'https://www.google.com.br/search?q=', icon: 'fa-brands fa-google icon-google' },
+            bing: { name: 'Bing', url: 'https://www.bing.com.br/search?q=', icon: 'fa-brands fa-microsoft icon-bing' },
+            duckduckgo: { name: 'DuckDuckGo', url: 'https://duckduckgo.com/?q=', icon: 'fa-solid fa-shield-cat icon-ddg' },
+            youtube: { name: 'YouTube', url: 'https://www.youtube.com.br/results?search_query=', icon: 'fa-brands fa-youtube icon-youtube' },
+            spotify: { name: 'Spotify', url: 'https://open.spotify.com/search/', icon: 'fa-brands fa-spotify icon-spotify' },
+            reddit: { name: 'Reddit', url: 'https://www.reddit.com.br/search/?q=', icon: 'fa-brands fa-reddit icon-reddit' },
+            amazon: { name: 'Amazon', url: 'https://www.amazon.com.br/s?k=', icon: 'fa-brands fa-amazon icon-amazon' },
+            wikipedia: { name: 'Wikipedia', url: 'https://pt.wikipedia.org/wiki/Special:Search?search=', icon: 'fa-brands fa-wikipedia-w icon-wiki' }
+        };
+
+        let currentEngine = 'google';
+        const engineBtn = document.getElementById('engineBtn');
+        const engineDropdown = document.getElementById('engineDropdown');
+        const engineIcon = document.getElementById('currentEngineIcon');
+        const engineName = document.getElementById('currentEngineName');
+        const searchInput = document.getElementById('searchInput');
+        const searchForm = document.getElementById('searchForm');
+        const searchHistory = document.getElementById('searchHistory');
+        const historyList = document.getElementById('historyList');
+
+        /* --- LÓGICA AVANÇADA DE FILTRAGEM (Cards + Headers) --- */
+        const cards = document.querySelectorAll('.card');
+        const headers = document.querySelectorAll('.section-header');
+
+        function filterCards() {
+            const searchTerm = searchInput.value.toLowerCase();
+            const activeCategory = document.querySelector('#catDropdown .dropdown-option.selected').dataset.catFilter;
+
+            cards.forEach(card => card.style.display = 'none');
+            headers.forEach(header => header.style.display = 'none');
+
+            const visibleCategories = new Set();
+
+            cards.forEach(card => {
+                const title = card.querySelector('h3').innerText.toLowerCase();
+                const category = card.dataset.cat;
+
+                const matchesCategory = activeCategory === 'all' || category === activeCategory;
+                const matchesSearch = title.includes(searchTerm);
+
+                if (matchesCategory && matchesSearch) {
+                    card.style.display = 'flex';
+                    visibleCategories.add(category);
+                }
+            });
+
+            if (visibleCategories.size > 0) {
+                headers.forEach(header => {
+                    if (header.classList.contains('header-gov') && visibleCategories.has('gov')) header.style.display = 'flex';
+                    if (header.classList.contains('header-banking') && visibleCategories.has('banking')) header.style.display = 'flex';
+                    if (header.classList.contains('header-shop') && visibleCategories.has('shop')) header.style.display = 'flex';
+                    if (header.classList.contains('header-media') && visibleCategories.has('media')) header.style.display = 'flex';
+                    if (header.classList.contains('header-social') && visibleCategories.has('social')) header.style.display = 'flex';
+                    if (header.classList.contains('header-cloud') && visibleCategories.has('cloud')) header.style.display = 'flex';
+                    if (header.classList.contains('header-ed') && visibleCategories.has('ed')) header.style.display = 'flex';
+                    if (header.classList.contains('header-news') && visibleCategories.has('news')) header.style.display = 'flex';
+                    if (header.classList.contains('header-music') && visibleCategories.has('music')) header.style.display = 'flex';
+                    if (header.classList.contains('header-health') && visibleCategories.has('health')) header.style.display = 'flex';
+                });
+            }
+        }
+
+        // Eventos para o dropdown de categorias
+        const catBtn = document.getElementById('catBtn');
+        const catDropdown = document.getElementById('catDropdown');
+        const catOptions = document.querySelectorAll('#catDropdown .dropdown-option');
+
+        catBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            catDropdown.classList.toggle('active');
+        });
+
+        catOptions.forEach(opt => {
+            opt.addEventListener('click', () => {
+                catOptions.forEach(o => o.classList.remove('selected'));
+                opt.classList.add('selected');
+                filterCards();
+                catDropdown.classList.remove('active');
+            });
+        });
+
+        searchInput.addEventListener('input', filterCards);
+
+
+        // --- LÓGICA RESTANTE DA PESQUISA (Web) ---
+        engineBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            engineDropdown.classList.toggle('active');
+        });
+
+        document.querySelectorAll('.engine-option').forEach(option => {
+            option.addEventListener('click', () => {
+                const engineKey = option.getAttribute('data-engine');
+                const data = engines[engineKey];
+                currentEngine = engineKey;
+                engineIcon.className = data.icon;
+                engineName.textContent = data.name;
+                document.querySelectorAll('.engine-option').forEach(opt => opt.classList.remove('selected'));
+                option.classList.add('selected');
+                engineDropdown.classList.remove('active');
+                searchInput.focus();
+            });
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!engineBtn.contains(e.target)) engineDropdown.classList.remove('active');
+            if (!searchInput.contains(e.target) && !searchHistory.contains(e.target)) searchHistory.classList.remove('active');
+            if (!catBtn.contains(e.target) && !catDropdown.contains(e.target)) catDropdown.classList.remove('active');
+        });
+
+        const storageKey = 'nexusHub_history_v2';
+        let searches = JSON.parse(localStorage.getItem(storageKey)) || [];
+
+        function renderHistory() {
+            historyList.innerHTML = '';
+            if (searches.length === 0) {
+                searchHistory.style.display = 'none';
+                return;
+            }
+            searches.slice(0, 5).reverse().forEach(term => {
+                const div = document.createElement('div');
+                div.className = 'history-item';
+                div.innerHTML = `<i class="fa-solid fa-clock-rotate-left"></i> ${term}`;
+                div.addEventListener('click', () => {
+                    searchInput.value = term;
+                    filterCards();
+                    searchHistory.classList.remove('active');
+                });
+                historyList.appendChild(div);
+            });
+        }
+
+        function saveToHistory(term) {
+            if (!term || term.trim() === '') return;
+            term = term.trim();
+            searches = searches.filter(s => s.toLowerCase() !== term.toLowerCase());
+            searches.push(term);
+            if (searches.length > 10) searches.shift(); 
+            localStorage.setItem(storageKey, JSON.stringify(searches));
+            renderHistory();
+        }
+
+        searchInput.addEventListener('focus', () => {
+            renderHistory();
+            if (searches.length > 0) searchHistory.classList.add('active');
+        });
+
+        function performSearch(query) {
+            if (query) {
+                const url = engines[currentEngine].url + encodeURIComponent(query);
+                saveToHistory(query);
+                window.open(url, '_blank');
+            }
+        }
+
+        searchForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            performSearch(searchInput.value);
+        });
+
+        const voiceBtn = document.getElementById('voiceBtn');
+        if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            const recognition = new SpeechRecognition();
+            recognition.lang = 'pt-BR';
+            recognition.continuous = false;
+            recognition.interimResults = false;
+            voiceBtn.addEventListener('click', () => {
+                recognition.start();
+                voiceBtn.classList.add('listening');
+            });
+            recognition.onresult = (event) => {
+                const transcript = event.results[0][0].transcript;
+                searchInput.value = transcript;
+                filterCards();
+                voiceBtn.classList.remove('listening');
+            };
+            recognition.onerror = () => { voiceBtn.classList.remove('listening'); };
+            recognition.onend = () => { voiceBtn.classList.remove('listening'); };
+        } else {
+            voiceBtn.style.display = 'none'; 
+        }
+
+        /* --- CONTROLE DE GRID (MOBILE E PC) --- */
+        const gridBtn = document.getElementById('gridBtn');
+        const gridDropdown = document.getElementById('gridDropdown');
+        const gridOptions = document.querySelectorAll('#gridDropdown .dropdown-option');
+        const bentoGrid = document.getElementById('bentoGrid');
+
+        gridBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            gridDropdown.classList.toggle('active');
+        });
+
+        gridOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                const cols = option.getAttribute('data-cols');
+                applyGrid(cols);
+                gridOptions.forEach(opt => opt.classList.remove('selected'));
+                option.classList.add('selected');
+                gridDropdown.classList.remove('active');
+            });
+        });
+
+        function applyGrid(cols) {
+            bentoGrid.classList.remove('cols-2', 'cols-3', 'cols-5');
+            if (cols === 'auto') {
+                bentoGrid.style.gridTemplateColumns = '';
+                saveGridPreference('auto');
+            } else {
+                bentoGrid.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
+                if(cols != 'auto') bentoGrid.classList.add(`cols-${cols}`);
+                saveGridPreference(cols);
+            }
+        }
+
+        function saveGridPreference(value) {
+            if (window.innerWidth <= 600) localStorage.setItem('nexusHub_mobileCols', value);
+            else localStorage.setItem('nexusHub_desktopCols', value);
+        }
+
+        function loadSavedGrid() {
+            let savedCols;
+            let key;
+            if (window.innerWidth <= 600) {
+                key = 'nexusHub_mobileCols';
+                savedCols = localStorage.getItem(key);
+                if(!savedCols) savedCols = '2';
+            } else {
+                key = 'nexusHub_desktopCols';
+                savedCols = localStorage.getItem(key);
+                if(!savedCols) savedCols = 'auto';
+            }
+            const optToSelect = document.querySelector(`#gridDropdown .dropdown-option[data-cols="${savedCols}"]`);
+            if(optToSelect) optToSelect.classList.add('selected');
+            applyGrid(savedCols);
+        }
+        loadSavedGrid();
+
+        let lastWidth = window.innerWidth;
+        window.addEventListener('resize', () => {
+            if (window.innerWidth !== lastWidth) {
+                lastWidth = window.innerWidth;
+                loadSavedGrid();
+            }
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!gridBtn.contains(e.target) && !gridDropdown.contains(e.target)) {
+                gridDropdown.classList.remove('active');
+            }
+        });
+
+        /* --- TILT 3D --- */
+        const cardElements = document.querySelectorAll('.card');
+        cardElements.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                if(window.innerWidth > 768) {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    const rotateX = ((y - centerY) / centerY) * -8;
+                    const rotateY = ((x - centerX) / centerX) * 8;
+                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+                }
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
+            });
+        });
+
+        /* --- EFEITO RIPPLE DE CLIQUE --- */
+        cardElements.forEach(card => {
+            card.addEventListener('click', function(e) {
+                if (e.button === 0) {
+                    e.preventDefault();
+                    this.classList.add('clicked');
+
+                    const ripple = document.createElement('span');
+                    ripple.classList.add('ripple');
+                    
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    const size = Math.max(rect.width, rect.height);
+                    ripple.style.width = ripple.style.height = `${size}px`;
+                    ripple.style.left = `${x - size / 2}px`;
+                    ripple.style.top = `${y - size / 2}px`;
+                    
+                    card.appendChild(ripple);
+                    
+                    setTimeout(() => { ripple.remove(); }, 600);
+
+                    const href = this.getAttribute('href');
+                    const target = this.getAttribute('target');
+                    setTimeout(() => {
+                        if (href && href !== '#') {
+                            if (target === '_blank') window.open(href, '_blank');
+                            else window.location.href = href;
+                        }
+                    }, 400);
+                }
+            });
+        });
+
+    </script>
+</body>
+</html>
