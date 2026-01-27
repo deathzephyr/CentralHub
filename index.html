@@ -101,8 +101,6 @@
         
         /* Área de controles do topo */
         .header-controls { display: flex; align-items: center; gap: 12px; }
-        
-        .clock { background: rgba(20, 20, 25, 0.8); border: 1px solid rgba(255,255,255,0.15); padding: 8px 18px; border-radius: 100px; font-family: 'Space Grotesk', monospace; font-size: 0.9rem; color: var(--accent-cyan); backdrop-filter: blur(20px); box-shadow: 0 0 20px rgba(6, 182, 212, 0.15); font-weight: 600; letter-spacing: 1px; }
 
         .header-btn-wrapper { position: relative; flex-shrink: 0; }
         
@@ -117,6 +115,7 @@
             color: var(--text-muted);
             cursor: pointer;
             transition: all 0.2s;
+            text-decoration: none;
         }
         .header-btn:hover { background: rgba(255,255,255,0.1); color: white; }
         .header-btn i { font-size: 1.1rem; }
@@ -639,6 +638,11 @@
             <!-- Controles do Header -->
             <div class="header-controls">
                 
+                <!-- BOTÃO HOME -->
+                <a href="https://deathzephyr.github.io/PortaisLDX/" class="header-btn" title="Portal Principal" target="_self">
+                    <i class="fa-solid fa-house"></i>
+                </a>
+
                 <!-- Botão de Controle de Grid -->
                 <div class="header-btn-wrapper">
                     <button class="header-btn" id="gridBtn" title="Layout">
@@ -669,8 +673,6 @@
                         <div class="dropdown-option" data-cat-filter="health">Saúde</div>
                     </div>
                 </div>
-
-                <div class="clock" id="clock">00:00</div>
             </div>
         </header>
 
@@ -906,13 +908,6 @@
     </div>
 
     <script>
-        /* --- RELÓGIO --- */
-        function updateClock() {
-            const now = new Date();
-            document.getElementById('clock').textContent = now.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
-        }
-        setInterval(updateClock, 1000); updateClock();
-
         /* --- SISTEMA DE PESQUISA E FILTRO --- */
         
         const engines = {
