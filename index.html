@@ -26,7 +26,7 @@
             --gradient-primary: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
             --shadow-card: 0 10px 30px -5px rgba(0, 0, 0, 0.5);
             
-            /* Cores das Marcas Existentes */
+            /* Cores das Marcas */
             --color-google: #EA4335;
             --color-youtube: #FF0000;
             --color-bing: #008373;
@@ -34,15 +34,13 @@
             --color-reddit: #FF4500;
             --color-wiki: #FFFFFF;
             --color-spotify: #1DB954;
-
-            /* Cores das Novas Marcas */
             --color-shopee: #ee4d2d;   
             --color-discord: #5865F2;  
             --color-whatsapp: #25D366; 
             --color-tiktok: #ff0050;   
             --color-netflix: #E50914;  /* Vermelho Netflix */
             --color-globo: #00AEEF;    /* Azul Globo */
-            --color-uol: #0054A6;      /* Azul UOF */
+            --color-uol: #0054A6;      /* Azul UOL */
 
             /* Cores de Categorias */
             --color-gov: #facc15;      
@@ -54,7 +52,7 @@
             --color-ed: #22c55e;      
             --color-news: #3b82f6;    
             --color-music: #1DB954;
-            --color-health: #ef4444;   /* Vermelho Saúde */
+            --color-health: #ef4444;   
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; outline: none; -webkit-tap-highlight-color: transparent; }
@@ -512,21 +510,23 @@
         .card-icon .fa-building-columns { font-size: 1.25rem !important; }
         .card-icon .fa-bag-shopping { font-size: 1.2rem !important; }
         .card-icon .fa-shield-cat { font-size: 1.3rem; }
-        .card-icon .fa-graduation-cap { font-size: 1.2rem !important; }
         .card-icon .fa-brain { font-size: 1.25rem !important; }
         .card-icon .fa-music { font-size: 1.25rem !important; }
         .card-icon .fa-heart-pulse { font-size: 1.3rem !important; }
+        .card-icon .fa-clapperboard { font-size: 1.3rem !important; } /* Netflix */
+        .card-icon .fa-language { font-size: 1.2rem !important; } /* Duolingo */
+        .card-icon .fa-briefcase { font-size: 1.25rem !important; } /* Bradesco */
         
         /* Tamanhos específicos para marcas */
         .card-icon .fa-globe { font-size: 1.25rem !important; transform: scale(1.1); } /* Globo */
-        .card-icon .fa-newspaper { font-size: 1.1rem !important; } /* UOL */
+        .card-icon .fa-layer-group { font-size: 1.25rem !important; } /* UOL */
 
         .card:hover .card-icon { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.3); transform: translateY(-3px) scale(1.05); box-shadow: 0 8px 15px rgba(0,0,0,0.3); }
         .card h3 { font-size: 1rem; font-weight: 600; margin-bottom: 2px; letter-spacing: -0.3px; transition: transform 0.2s; }
         .card:hover h3 { transform: translateY(-1px); }
         .card p { font-size: 0.75rem; color: var(--text-muted); line-height: 1.3; font-weight: 500; }
 
-        /* Cores dos Cards (Hover) - Reutilizando variáveis de categoria */
+        /* Cores dos Cards (Hover) */
         .card[data-cat="gov"] .card-icon { color: var(--color-gov); text-shadow: 0 0 15px rgba(250, 204, 21, 0.2); }
         .card[data-cat="gov"]:hover { box-shadow: 0 20px 40px -10px rgba(250, 204, 21, 0.3), 0 0 0 1px rgba(250, 204, 21, 0.1); border-color: rgba(250, 204, 21, 0.3); }
 
@@ -561,11 +561,11 @@
         .icon-discord { color: var(--color-discord); }
         .icon-whatsapp { color: var(--color-whatsapp); }
         .icon-shopee { color: var(--color-shopee); }
-        .icon-receita { color: var(--color-gov) !important; } /* Força amarelo */
-        .icon-netflix { color: var(--color-netflix); } /* Vermelho Netflix */
-        .icon-tiktok { color: var(--color-tiktok); } /* Rosa TikTok */
-        .icon-globo { color: var(--color-globo); } /* Azul Globo */
-        .icon-uol { color: var(--color-uol); } /* Azul UOL */
+        .icon-receita { color: var(--color-gov) !important; } 
+        .icon-netflix { color: var(--color-netflix); } /* VERMELHO FORÇADO */
+        .icon-tiktok { color: var(--color-tiktok); }
+        .icon-globo { color: var(--color-globo); }
+        .icon-uol { color: var(--color-uol); }
 
         /* --- FOOTER --- */
         footer { 
@@ -733,7 +733,7 @@
             </div>
 
             <a href="https://www.gov.br/" target="_blank" class="card" data-cat="gov">
-                <div class="card-content"><div class="card-icon"><i class="fa-solid fa-scale-balanced"></i></div><h3>Gov.br</h3><p>Portal Brasil</p></div><i class="fa-solid fa-scale-balanced card-bg-icon"></i>
+                <div class="card-content"><div class="card-icon"><i class="fa-solid fa-scale-balanced"></i></div><h3>Gov</h3><p>Portal Brasil</p></div><i class="fa-solid fa-scale-balanced card-bg-icon"></i>
             </a>
             <a href="https://www.receita.fazenda.gov.br/" target="_blank" class="card" data-cat="gov">
                 <div class="card-content"><div class="card-icon icon-receita"><i class="fa-solid fa-building-columns"></i></div><h3>Receita Federal</h3><p>Tesouro Nacional</p></div><i class="fa-solid fa-building-columns card-bg-icon"></i>
@@ -755,16 +755,16 @@
                 <div class="card-content"><div class="card-icon"><i class="fa-solid fa-pen-to-square"></i></div><h3>Banco do Brasil</h3><p>Internet Banking</p></div><i class="fa-solid fa-pen-to-square card-bg-icon"></i>
             </a>
             <a href="https://nubank.com.br/" target="_blank" class="card" data-cat="banking">
-                <div class="card-content"><div class="card-icon"><i class="fa-solid fa-n"></i></div><h3>NuBank</h3><p>Banco Digital</p></div><i class="fa-solid fa-n card-bg-icon"></i>
+                <div class="card-content"><div class="card-icon"><i class="fa-solid fa-n"></i></div><h3>Nubank</h3><p>Banco Digital</p></div><i class="fa-solid fa-n card-bg-icon"></i>
             </a>
             <a href="https://santander.com.br/" target="_blank" class="card" data-cat="banking">
                 <div class="card-content"><div class="card-icon"><i class="fa-solid fa-s"></i></div><h3>Santander</h3><p>Cartão Crédito</p></div><i class="fa-solid fa-s card-bg-icon"></i>
             </a>
             <a href="https://inter.co/" target="_blank" class="card" data-cat="banking">
-                <div class="card-content"><div class="card-icon"><i class="fa-solid fa-i"></i></div><h3>Banco Inter</h3><p>Investimentos</p></div><i class="fa-solid fa-i card-bg-icon"></i>
+                <div class="card-content"><div class="card-icon"><i class="fa-solid fa-i"></i></div><h3>Inter</h3><p>Investimentos</p></div><i class="fa-solid fa-i card-bg-icon"></i>
             </a>
             <a href="https://www.bradesco.com.br/" target="_blank" class="card" data-cat="banking">
-                <div class="card-content"><div class="card-icon"><i class="fa-solid fa-user-tie"></i></div><h3>Bradesco</h3><p>Cartão de Crédito</p></div><i class="fa-solid fa-user-tie card-bg-icon"></i>
+                <div class="card-content"><div class="card-icon"><i class="fa-solid fa-briefcase"></i></div><h3>Bradesco</h3><p>Cartão de Crédito</p></div><i class="fa-solid fa-briefcase card-bg-icon"></i>
             </a>
 
             <!-- SEÇÃO: SHOPPING & MARCAS -->
@@ -793,7 +793,7 @@
             </div>
 
             <a href="https://www.netflix.com.br/" target="_blank" class="card" data-cat="media">
-                <div class="card-content"><div class="card-icon icon-netflix"><i class="fa-brands fa-netflix"></i></div><h3>Netflix</h3><p>Filmes & Séries</p></div><i class="fa-brands fa-netflix card-bg-icon"></i>
+                <div class="card-content"><div class="card-icon icon-netflix"><i class="fa-solid fa-clapperboard"></i></div><h3>Netflix</h3><p>Filmes & Séries</p></div><i class="fa-solid fa-clapperboard card-bg-icon"></i>
             </a>
             <a href="https://www.youtube.com/" target="_blank" class="card" data-cat="media">
                 <div class="card-content"><div class="card-icon"><i class="fa-brands fa-youtube"></i></div><h3>YouTube</h3><p>Vídeos</p></div><i class="fa-brands fa-youtube card-bg-icon"></i>
@@ -847,10 +847,10 @@
                 <div class="card-content"><div class="card-icon"><i class="fa-solid fa-brain"></i></div><h3>Brainly</h3><p>Cursos</p></div><i class="fa-solid fa-brain card-bg-icon"></i>
             </a>
             <a href="https://duolingo.com/" target="_blank" class="card" data-cat="ed">
-                <div class="card-content"><div class="card-icon"><i class="fa-solid fa-graduation-cap"></i></div><h3>Duolingo</h3><p>Línguagens</p></div><i class="fa-solid fa-graduation-cap card-bg-icon"></i>
+                <div class="card-content"><div class="card-icon"><i class="fa-solid fa-language"></i></div><h3>Duolingo</h3><p>Línguagens</p></div><i class="fa-solid fa-language card-bg-icon"></i>
             </a>
             <a href="https://www.coursera.com/" target="_blank" class="card" data-cat="ed">
-                <div class="card-content"><div class="card-icon"><i class="fa-solid fa-school"></i></div><h3>Coursera</h3><p>Cursos</p></div><i class="fa-solid fa-school card-bg-icon"></i>
+                <div class="card-content"><div class="card-icon"><i class="fa-solid fa-graduation-cap"></i></div><h3>Coursera</h3><p>Cursos</p></div><i class="fa-solid fa-graduation-cap card-bg-icon"></i>
             </a>
 
             <!-- SEÇÃO: SAÚDE & BEM-ESTAR -->
@@ -882,7 +882,7 @@
                 <div class="card-content"><div class="card-icon"><i class="fa-solid fa-newspaper"></i></div><h3>Folha</h3><p>Brazil</p></div><i class="fa-solid fa-newspaper card-bg-icon"></i>
             </a>
             <a href="https://www.uol.com.br/" target="_blank" class="card" data-cat="news">
-                <div class="card-content"><div class="card-icon icon-uol"><i class="fa-solid fa-newspaper"></i></div><h3>UOL</h3><p>Notícias</p></div><i class="fa-solid fa-newspaper card-bg-icon"></i>
+                <div class="card-content"><div class="card-icon icon-uol"><i class="fa-solid fa-layer-group"></i></div><h3>UOL</h3><p>Notícias</p></div><i class="fa-solid fa-layer-group card-bg-icon"></i>
             </a>
 
             <!-- SEÇÃO: NUVEM & MÚSICA -->
