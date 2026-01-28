@@ -38,9 +38,9 @@
             --color-discord: #5865F2;  
             --color-whatsapp: #25D366; 
             --color-tiktok: #ff0050;   
-            --color-netflix: #E50914;  /* Vermelho Netflix */
-            --color-globo: #00AEEF;    /* Azul Globo */
-            --color-uol: #0054A6;      /* Azul UOL */
+            --color-netflix: #E50914;  
+            --color-globo: #00AEEF;    
+            --color-uol: #0054A6;      
 
             /* Cores de Categorias */
             --color-gov: #facc15;      
@@ -69,7 +69,30 @@
 
         h1, h2, h3, .logo { font-family: 'Space Grotesk', sans-serif; }
 
-        /* --- BACKGROUND --- */
+        /* --- BACKGROUND LAYER SYSTEM (CONEXÃO COM PORTAL LDX) --- */
+        #custom-bg-layer {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh; 
+            z-index: -2;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            pointer-events: none;
+        }
+
+        /* Se tiver fundo customizado, esconde as orbs padrão do CentralHub */
+        body.has-custom-bg .ambient-light {
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        body.has-custom-bg #custom-bg-layer {
+            opacity: 1;
+        }
+
+        /* --- BACKGROUND ORIGINAL CENTRALHUB --- */
         .ambient-light {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -614,7 +637,7 @@
             .dropdown-option[data-cols="3"] { display: none; }
         }
 
-        /* 5 Colunas (Compactada) */
+        /*5 Colunas (Compactada) */
         .bento-grid.cols-5 { gap: 8px; }
         .bento-grid.cols-5 .card { height: 110px; padding: 8px; }
         .bento-grid.cols-5 .card-icon { width: 26px; height: 26px; font-size: 0.75rem; margin-bottom: 4px; padding: 0; }
@@ -625,6 +648,10 @@
 </head>
 <body>
 
+    <!-- CAMADA DE FUNDO PERSONALIZADO (SÓ LEITURA DO PORTAL) -->
+    <div id="custom-bg-layer"></div>
+
+    <!-- FUNDO AMBIENTE ORIGINAL CENTRALHUB -->
     <div class="ambient-light">
         <div class="orb orb-1"></div>
         <div class="orb orb-2"></div>
@@ -903,11 +930,21 @@
         </div>
 
         <footer>
-            <p>DESIGN BY LDX © 2026</p>
+            <p>DESIGN BY LDX ©2026</p>
         </footer>
     </div>
 
     <script>
+        /* --- CONEXÃO DE FUNDO (APENAS LEITURA DO PORTAL LDX) --- */
+        const savedBg = localStorage.getItem('ldx_custom_bg');
+        const savedType = localStorage.getItem('ldx_bg_type');
+        const customBgLayer = document.getElementById('custom-bg-layer');
+
+        if (savedBg && savedType === 'image') {
+            customBgLayer.style.backgroundImage = `url('${savedBg}')`;
+            document.body.classList.add('has-custom-bg');
+        }
+
         /* --- SISTEMA DE PESQUISA E FILTRO --- */
         
         const engines = {
@@ -1021,7 +1058,7 @@
             if (!catBtn.contains(e.target) && !catDropdown.contains(e.target)) catDropdown.classList.remove('active');
         });
 
-        const storageKey = 'nexusHub_history_v2';
+        const storageKey = 'centralHub_history_v2';
         let searches = JSON.parse(localStorage.getItem(storageKey)) || [];
 
         function renderHistory() {
@@ -1128,19 +1165,19 @@
         }
 
         function saveGridPreference(value) {
-            if (window.innerWidth <= 600) localStorage.setItem('nexusHub_mobileCols', value);
-            else localStorage.setItem('nexusHub_desktopCols', value);
+            if (window.innerWidth <= 600) localStorage.setItem('centralHub_mobileCols', value);
+            else localStorage.setItem('centralHub_desktopCols', value);
         }
 
         function loadSavedGrid() {
             let savedCols;
             let key;
             if (window.innerWidth <= 600) {
-                key = 'nexusHub_mobileCols';
+                key = 'centralHub_mobileCols';
                 savedCols = localStorage.getItem(key);
                 if(!savedCols) savedCols = '2';
             } else {
-                key = 'nexusHub_desktopCols';
+                key = 'centralHub_desktopCols';
                 savedCols = localStorage.getItem(key);
                 if(!savedCols) savedCols = 'auto';
             }
@@ -1168,7 +1205,7 @@
         const cardElements = document.querySelectorAll('.card');
         cardElements.forEach(card => {
             card.addEventListener('mousemove', (e) => {
-                if(window.innerWidth > 768) {
+                if(window.innerWidth >768) {
                     const rect = card.getBoundingClientRect();
                     const x = e.clientX - rect.left;
                     const y = e.clientY - rect.top;
