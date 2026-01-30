@@ -48,7 +48,6 @@
             --color-shop: #ff6b00;     
             --color-media: #ec4899;   
             --color-social: #ffffff;  
-            --color-cloud: #008373;   
             --color-ed: #22c55e;      
             --color-news: #3b82f6;    
             --color-music: #1DB954;
@@ -82,7 +81,6 @@
             pointer-events: none;
         }
 
-        /* Se tiver fundo customizado, esconde as orbs padrão do CentralHub */
         body.has-custom-bg .ambient-light {
             opacity: 0;
             transition: opacity 0.5s ease;
@@ -122,7 +120,6 @@
         header { display: flex; justify-content: space-between; align-items: center; padding: 2rem 0; position: relative; }
         .logo { font-size: 1.6rem; font-weight: 700; background: linear-gradient(to right, #fff, #cbd5e1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: flex; align-items: center; gap: 12px; text-shadow: 0 0 30px rgba(255,255,255,0.1); }
         
-        /* Área de controles do topo */
         .header-controls { display: flex; align-items: center; gap: 12px; }
 
         .header-btn-wrapper { position: relative; flex-shrink: 0; }
@@ -184,7 +181,6 @@
         #catDropdown .dropdown-option[data-cat-filter="shop"] { color: var(--color-shop); }
         #catDropdown .dropdown-option[data-cat-filter="media"] { color: #ec4899; }
         #catDropdown .dropdown-option[data-cat-filter="social"] { color: #ffffff; }
-        #catDropdown .dropdown-option[data-cat-filter="cloud"] { color: #008373; }
         #catDropdown .dropdown-option[data-cat-filter="ed"] { color: #22c55e; }
         #catDropdown .dropdown-option[data-cat-filter="health"] { color: var(--color-health); }
 
@@ -194,7 +190,6 @@
         /* --- HERO --- */
         .hero { text-align: center; margin: 3rem 0 2rem; position: relative; }
         
-        /* Animação de Cores no Título */
         @keyframes colorCycle {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
@@ -421,7 +416,6 @@
         .header-shop .section-title { color: var(--color-shop); } .header-shop .section-line { background: linear-gradient(to right, var(--color-shop), transparent); }
         .header-media .section-title { color: #ec4899; } .header-media .section-line { background: linear-gradient(to right, #ec4899, transparent); }
         .header-social .section-title { color: #ffffff; } .header-social .section-line { background: linear-gradient(to right, #ffffff, transparent); }
-        .header-cloud .section-title { color: #008373; } .header-cloud .section-line { background: linear-gradient(to right, #008373, transparent); }
         .header-ed .section-title { color: #22c55e; } .header-ed .section-line { background: linear-gradient(to right, #22c55e, transparent); }
         .header-news .section-title { color: var(--color-news); } .header-news .section-line { background: linear-gradient(to right, var(--color-news), transparent); }
         .header-health .section-title { color: var(--color-health); } .header-health .section-line { background: linear-gradient(to right, var(--color-health), transparent); }
@@ -538,6 +532,8 @@
         .card-icon .fa-clapperboard { font-size: 1.3rem !important; } /* Netflix */
         .card-icon .fa-language { font-size: 1.2rem !important; } /* Duolingo */
         .card-icon .fa-briefcase { font-size: 1.25rem !important; } /* Bradesco */
+        .card-icon .fa-lightbulb { font-size: 1.3rem !important; } /* Udemy */
+        .card-icon .fa-microphone-lines { font-size: 1.3rem !important; } /* TED */
         
         /* Tamanhos específicos para marcas */
         .card-icon .fa-globe { font-size: 1.25rem !important; transform: scale(1.1); } /* Globo */
@@ -563,9 +559,6 @@
 
         .card[data-cat="social"] .card-icon { color: #ffffff; text-shadow: 0 0 15px rgba(255, 255, 255, 0.15); }
         .card[data-cat="social"]:hover { box-shadow: 0 20px 40px -10px rgba(255, 255, 255, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.1); border-color: rgba(255, 255, 255, 0.3); }
-
-        .card[data-cat="cloud"] .card-icon { color: #008373; text-shadow: 0 0 15px rgba(0, 131, 115, 0.2); }
-        .card[data-cat="cloud"]:hover { box-shadow: 0 20px 40px -10px rgba(0, 131, 115, 0.3), 0 0 0 1px rgba(0, 131, 115, 0.1); border-color: rgba(0, 131, 115, 0.3); }
 
         .card[data-cat="ed"] .card-icon { color: #22c55e; text-shadow: 0 0 15px rgba(34,197, 94, 0.2); }
         .card[data-cat="ed"]:hover { box-shadow: 0 20px 40px -10px rgba(34,197, 94, 0.3), 0 0 0 1px rgba(34,197, 94, 0.1); border-color: rgba(34,197, 94, 0.3); }
@@ -695,7 +688,7 @@
                         <div class="dropdown-option" data-cat-filter="shop">Lojas</div>
                         <div class="dropdown-option" data-cat-filter="media">Mídia</div>
                         <div class="dropdown-option" data-cat-filter="social">Redes Sociais</div>
-                        <div class="dropdown-option" data-cat-filter="cloud">Cloud</div>
+                        <!-- Removida opção Cloud -->
                         <div class="dropdown-option" data-cat-filter="ed">Educação</div>
                         <div class="dropdown-option" data-cat-filter="health">Saúde</div>
                     </div>
@@ -762,16 +755,19 @@
             </div>
 
             <a href="https://www.gov.br/" target="_blank" class="card" data-cat="gov">
-                <div class="card-content"><div class="card-icon"><i class="fa-solid fa-scale-balanced"></i></div><h3>Gov</h3><p>Portal Brasil</p></div><i class="fa-solid fa-scale-balanced card-bg-icon"></i>
+                <div class="card-content"><div class="card-icon"><i class="fa-solid fa-scale-balanced"></i></div><h3>Gov.br</h3><p>Portal Brasil</p></div><i class="fa-solid fa-scale-balanced card-bg-icon"></i>
             </a>
             <a href="https://www.receita.fazenda.gov.br/" target="_blank" class="card" data-cat="gov">
                 <div class="card-content"><div class="card-icon icon-receita"><i class="fa-solid fa-building-columns"></i></div><h3>Receita Federal</h3><p>Tesouro Nacional</p></div><i class="fa-solid fa-building-columns card-bg-icon"></i>
             </a>
             <a href="https://www.bcb.gov.br/" target="_blank" class="card" data-cat="gov">
-                <div class="card-content"><div class="card-icon"><i class="fa-solid fa-money-bill-wave"></i></div><h3>Banco Central</h3><p>Banco do Brasil</p></div><i class="fa-solid fa-money-bill-wave card-bg-icon"></i>
+                <div class="card-content"><div class="card-icon"><i class="fa-solid fa-money-bill-wave"></i></div><h3>Banco Central</h3><p>Finanças</p></div><i class="fa-solid fa-money-bill-wave card-bg-icon"></i>
             </a>
             <a href="https://www.caixa.gov.br/" target="_blank" class="card" data-cat="gov">
                 <div class="card-content"><div class="card-icon"><i class="fa-solid fa-coins"></i></div><h3>Caixa Econômica</h3><p>Governo Federal</p></div><i class="fa-solid fa-coins card-bg-icon"></i>
+            </a>
+            <a href="https://www.inss.gov.br/" target="_blank" class="card" data-cat="gov">
+                <div class="card-content"><div class="card-icon"><i class="fa-solid fa-umbrella"></i></div><h3>INSS</h3><p>Seguro Social</p></div><i class="fa-solid fa-umbrella card-bg-icon"></i>
             </a>
 
             <!-- SEÇÃO: BANCOS & FINANÇAS -->
@@ -814,6 +810,9 @@
             <a href="https://www.shopee.com.br/" target="_blank" class="card" data-cat="shop">
                 <div class="card-content"><div class="card-icon icon-shopee"><i class="fa-solid fa-bag-shopping"></i></div><h3>Shopee</h3><p>Grandes Marcas</p></div><i class="fa-solid fa-bag-shopping card-bg-icon"></i>
             </a>
+            <a href="https://www.mercadolivre.com.br/" target="_blank" class="card" data-cat="shop">
+                <div class="card-content"><div class="card-icon"><i class="fa-solid fa-handshake"></i></div><h3>Mercado Livre</h3><p>Compras Online</p></div><i class="fa-solid fa-handshake card-bg-icon"></i>
+            </a>
 
             <!-- SEÇÃO: MÍDIA & STREAMING -->
             <div class="section-header header-media">
@@ -832,6 +831,9 @@
             </a>
             <a href="https://www.hbo.com/" target="_blank" class="card" data-cat="media">
                 <div class="card-content"><div class="card-icon"><i class="fa-solid fa-tv"></i></div><h3>HBO Max</h3><p>Filmes e TV</p></div><i class="fa-solid fa-tv card-bg-icon"></i>
+            </a>
+            <a href="https://www.disneyplus.com/br" target="_blank" class="card" data-cat="media">
+                <div class="card-content"><div class="card-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></div><h3>Disney+</h3><p>Filmes, Séries</p></div><i class="fa-solid fa-wand-magic-sparkles card-bg-icon"></i>
             </a>
 
             <!-- SEÇÃO: SOCIAIS -->
@@ -856,15 +858,7 @@
                 <div class="card-content"><div class="card-icon icon-tiktok"><i class="fa-brands fa-tiktok"></i></div><h3>TikTok</h3><p>Vídeos Curtos</p></div><i class="fa-brands fa-tiktok card-bg-icon"></i>
             </a>
 
-            <!-- SEÇÃO: CLOUD -->
-            <div class="section-header header-cloud">
-                <div class="section-title"><i class="fa-solid fa-cloud"></i> Cloud & Desenvolvimento</div>
-                <div class="section-line"></div>
-            </div>
-
-            <a href="https://drive.google.com/" target="_blank" class="card" data-cat="cloud">
-                <div class="card-content"><div class="card-icon"><i class="fa-brands fa-google-drive"></i></div><h3>Google Drive</h3><p>Armazenamento Oficial</p></div><i class="fa-brands fa-google-drive card-bg-icon"></i>
-            </a>
+            <!-- SEÇÃO: CLOUD REMOVIDA -->
 
             <!-- SEÇÃO: EDUCAÇÃO -->
             <div class="section-header header-ed">
@@ -873,13 +867,22 @@
             </div>
 
             <a href="https://brainly.com" target="_blank" class="card" data-cat="ed">
-                <div class="card-content"><div class="card-icon"><i class="fa-solid fa-brain"></i></div><h3>Brainly</h3><p>Cursos</p></div><i class="fa-solid fa-brain card-bg-icon"></i>
+                <div class="card-content"><div class="card-icon"><i class="fa-solid fa-brain"></i></div><h3>Brainly</h3><p>Tarefas</p></div><i class="fa-solid fa-brain card-bg-icon"></i>
             </a>
             <a href="https://duolingo.com/" target="_blank" class="card" data-cat="ed">
                 <div class="card-content"><div class="card-icon"><i class="fa-solid fa-language"></i></div><h3>Duolingo</h3><p>Línguagens</p></div><i class="fa-solid fa-language card-bg-icon"></i>
             </a>
             <a href="https://www.coursera.com/" target="_blank" class="card" data-cat="ed">
                 <div class="card-content"><div class="card-icon"><i class="fa-solid fa-graduation-cap"></i></div><h3>Coursera</h3><p>Cursos</p></div><i class="fa-solid fa-graduation-cap card-bg-icon"></i>
+            </a>
+            <!-- Khan Academy e Alura Removidos -->
+            <!-- Adicionado Udemy -->
+            <a href="https://www.udemy.com/" target="_blank" class="card" data-cat="ed">
+                <div class="card-content"><div class="card-icon"><i class="fa-solid fa-lightbulb"></i></div><h3>Udemy</h3><p>Aprendizado</p></div><i class="fa-solid fa-lightbulb card-bg-icon"></i>
+            </a>
+            <!-- Adicionado TED Talks -->
+            <a href="https://www.ted.com/" target="_blank" class="card" data-cat="ed">
+                <div class="card-content"><div class="card-icon"><i class="fa-solid fa-microphone-lines"></i></div><h3>TED Talks</h3><p>Ideas Worth Spreading</p></div><i class="fa-solid fa-microphone-lines card-bg-icon"></i>
             </a>
 
             <!-- SEÇÃO: SAÚDE & BEM-ESTAR -->
@@ -897,6 +900,12 @@
             <a href="https://www.gov.br/anvisa" target="_blank" class="card" data-cat="health">
                 <div class="card-content"><div class="card-icon"><i class="fa-solid fa-flask"></i></div><h3>Anvisa</h3><p>Vigilância Sanitária</p></div><i class="fa-solid fa-flask card-bg-icon"></i>
             </a>
+            <a href="https://aps.saude.gov.br/" target="_blank" class="card" data-cat="health">
+                <div class="card-content"><div class="card-icon"><i class="fa-solid fa-house-medical"></i></div><h3>APS</h3><p>Atenção Básica</p></div><i class="fa-solid fa-house-medical card-bg-icon"></i>
+            </a>
+            <a href="https://www.minhavida.com.br/" target="_blank" class="card" data-cat="health">
+                <div class="card-content"><div class="card-icon"><i class="fa-solid fa-stethoscope"></i></div><h3>Minha Vida</h3><p>Informações</p></div><i class="fa-solid fa-stethoscope card-bg-icon"></i>
+            </a>
 
             <!-- SEÇÃO: NOTÍCIAS -->
             <div class="section-header header-news">
@@ -913,6 +922,12 @@
             <a href="https://www.uol.com.br/" target="_blank" class="card" data-cat="news">
                 <div class="card-content"><div class="card-icon icon-uol"><i class="fa-solid fa-layer-group"></i></div><h3>UOL</h3><p>Notícias</p></div><i class="fa-solid fa-layer-group card-bg-icon"></i>
             </a>
+            <a href="https://www.bbc.com/portuguese" target="_blank" class="card" data-cat="news">
+                <div class="card-content"><div class="card-icon"><i class="fa-solid fa-earth-americas"></i></div><h3>BBC Brasil</h3><p>Internacional</p></div><i class="fa-solid fa-earth-americas card-bg-icon"></i>
+            </a>
+            <a href="https://www.cnnbrasil.com.br/" target="_blank" class="card" data-cat="news">
+                <div class="card-content"><div class="card-icon"><i class="fa-solid fa-broadcast-tower"></i></div><h3>CNN Brasil</h3><p>Jornalismo TV</p></div><i class="fa-solid fa-broadcast-tower card-bg-icon"></i>
+            </a>
 
             <!-- SEÇÃO: NUVEM & MÚSICA -->
             <div class="section-header header-music">
@@ -925,6 +940,15 @@
             </a>
             <a href="https://www.deezer.com/" target="_blank" class="card" data-cat="music">
                 <div class="card-content"><div class="card-icon"><i class="fa-solid fa-wave-square"></i></div><h3>Deezer</h3><p>Música Grátis</p></div><i class="fa-solid fa-wave-square card-bg-icon"></i>
+            </a>
+            <a href="https://music.apple.com/br/" target="_blank" class="card" data-cat="music">
+                <div class="card-content"><div class="card-icon"><i class="fa-brands fa-apple"></i></div><h3>Apple Music</h3><p>Streaming</p></div><i class="fa-brands fa-apple card-bg-icon"></i>
+            </a>
+            <a href="https://music.youtube.com/" target="_blank" class="card" data-cat="music">
+                <div class="card-content"><div class="card-icon"><i class="fa-brands fa-youtube"></i></div><h3>YouTube Music</h3><p>Vídeos & Música</p></div><i class="fa-brands fa-youtube card-bg-icon"></i>
+            </a>
+            <a href="https://soundcloud.com/" target="_blank" class="card" data-cat="music">
+                <div class="card-content"><div class="card-icon"><i class="fa-brands fa-soundcloud"></i></div><h3>SoundCloud</h3><p>Áudio Social</p></div><i class="fa-brands fa-soundcloud card-bg-icon"></i>
             </a>
 
         </div>
@@ -996,12 +1020,12 @@
 
             if (visibleCategories.size > 0) {
                 headers.forEach(header => {
+                    // Removida verificação de cloud
                     if (header.classList.contains('header-gov') && visibleCategories.has('gov')) header.style.display = 'flex';
                     if (header.classList.contains('header-banking') && visibleCategories.has('banking')) header.style.display = 'flex';
                     if (header.classList.contains('header-shop') && visibleCategories.has('shop')) header.style.display = 'flex';
                     if (header.classList.contains('header-media') && visibleCategories.has('media')) header.style.display = 'flex';
                     if (header.classList.contains('header-social') && visibleCategories.has('social')) header.style.display = 'flex';
-                    if (header.classList.contains('header-cloud') && visibleCategories.has('cloud')) header.style.display = 'flex';
                     if (header.classList.contains('header-ed') && visibleCategories.has('ed')) header.style.display = 'flex';
                     if (header.classList.contains('header-news') && visibleCategories.has('news')) header.style.display = 'flex';
                     if (header.classList.contains('header-music') && visibleCategories.has('music')) header.style.display = 'flex';
