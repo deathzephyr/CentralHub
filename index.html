@@ -44,11 +44,11 @@
 
             /* Cores de Categorias */
             --color-gov: #facc15;      
-            --color-banking: #008373;  
+            --color-banking: #0ea5e9;  /* AZUL CÉU VIBRANTE */
             --color-shop: #ff6b00;     
             --color-media: #ec4899;   
             --color-social: #ffffff;  
-            --color-ed: #22c55e;      
+            --color-ed: #8b5cf6;       /* ROXO */
             --color-news: #3b82f6;    
             --color-music: #1DB954;
             --color-health: #ef4444;   
@@ -181,7 +181,7 @@
         #catDropdown .dropdown-option[data-cat-filter="shop"] { color: var(--color-shop); }
         #catDropdown .dropdown-option[data-cat-filter="media"] { color: #ec4899; }
         #catDropdown .dropdown-option[data-cat-filter="social"] { color: #ffffff; }
-        #catDropdown .dropdown-option[data-cat-filter="ed"] { color: #22c55e; }
+        #catDropdown .dropdown-option[data-cat-filter="ed"] { color: var(--color-ed); }
         #catDropdown .dropdown-option[data-cat-filter="health"] { color: var(--color-health); }
 
         .dropdown-option:hover { background: rgba(255,255,255,0.08); transform: translateX(2px); }
@@ -416,7 +416,7 @@
         .header-shop .section-title { color: var(--color-shop); } .header-shop .section-line { background: linear-gradient(to right, var(--color-shop), transparent); }
         .header-media .section-title { color: #ec4899; } .header-media .section-line { background: linear-gradient(to right, #ec4899, transparent); }
         .header-social .section-title { color: #ffffff; } .header-social .section-line { background: linear-gradient(to right, #ffffff, transparent); }
-        .header-ed .section-title { color: #22c55e; } .header-ed .section-line { background: linear-gradient(to right, #22c55e, transparent); }
+        .header-ed .section-title { color: var(--color-ed); } .header-ed .section-line { background: linear-gradient(to right, var(--color-ed), transparent); }
         .header-news .section-title { color: var(--color-news); } .header-news .section-line { background: linear-gradient(to right, var(--color-news), transparent); }
         .header-health .section-title { color: var(--color-health); } .header-health .section-line { background: linear-gradient(to right, var(--color-health), transparent); }
         .header-music .section-title { color: var(--color-music); } .header-music .section-line { background: linear-gradient(to right, var(--color-music), transparent); }
@@ -548,8 +548,8 @@
         .card[data-cat="gov"] .card-icon { color: var(--color-gov); text-shadow: 0 0 15px rgba(250, 204, 21, 0.2); }
         .card[data-cat="gov"]:hover { box-shadow: 0 20px 40px -10px rgba(250, 204, 21, 0.3), 0 0 0 1px rgba(250, 204, 21, 0.1); border-color: rgba(250, 204, 21, 0.3); }
 
-        .card[data-cat="banking"] .card-icon { color: var(--color-banking); text-shadow: 0 0 15px rgba(0, 131, 115, 0.2); }
-        .card[data-cat="banking"]:hover { box-shadow: 0 20px 40px -10px rgba(0, 131, 115, 0.3), 0 0 0 1px rgba(0, 131, 115, 0.1); border-color: rgba(0, 131, 115, 0.3); }
+        .card[data-cat="banking"] .card-icon { color: var(--color-banking); text-shadow: 0 0 15px rgba(14, 165, 233, 0.2); }
+        .card[data-cat="banking"]:hover { box-shadow: 0 20px 40px -10px rgba(14, 165, 233, 0.3), 0 0 0 1px rgba(14, 165, 233, 0.1); border-color: rgba(14, 165, 233, 0.3); }
 
         .card[data-cat="shop"] .card-icon { color: var(--color-shop); text-shadow: 0 0 15px rgba(255, 107, 0, 0.2); }
         .card[data-cat="shop"]:hover { box-shadow: 0 20px 40px -10px rgba(255, 107, 0, 0.3), 0 0 0 1px rgba(255, 107, 0, 0.1); border-color: rgba(255, 107, 0, 0.3); }
@@ -560,8 +560,8 @@
         .card[data-cat="social"] .card-icon { color: #ffffff; text-shadow: 0 0 15px rgba(255, 255, 255, 0.15); }
         .card[data-cat="social"]:hover { box-shadow: 0 20px 40px -10px rgba(255, 255, 255, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.1); border-color: rgba(255, 255, 255, 0.3); }
 
-        .card[data-cat="ed"] .card-icon { color: #22c55e; text-shadow: 0 0 15px rgba(34,197, 94, 0.2); }
-        .card[data-cat="ed"]:hover { box-shadow: 0 20px 40px -10px rgba(34,197, 94, 0.3), 0 0 0 1px rgba(34,197, 94, 0.1); border-color: rgba(34,197, 94, 0.3); }
+        .card[data-cat="ed"] .card-icon { color: var(--color-ed); text-shadow: 0 0 15px rgba(139, 92, 246, 0.2); }
+        .card[data-cat="ed"]:hover { box-shadow: 0 20px 40px -10px rgba(139, 92, 246, 0.3), 0 0 0 1px rgba(139, 92, 246, 0.1); border-color: rgba(139, 92, 246, 0.3); }
 
         .card[data-cat="news"] .card-icon { color: var(--color-news); text-shadow: 0 0 15px rgba(59, 130, 246, 0.2); }
         .card[data-cat="news"]:hover { box-shadow: 0 20px 40px -10px rgba(59, 130, 246, 0.3), 0 0 0 1px rgba(59, 130, 246, 0.1); border-color: rgba(59, 130, 246, 0.3); }
@@ -857,8 +857,6 @@
             <a href="https://www.tiktok.com/" target="_blank" class="card" data-cat="social">
                 <div class="card-content"><div class="card-icon icon-tiktok"><i class="fa-brands fa-tiktok"></i></div><h3>TikTok</h3><p>Vídeos Curtos</p></div><i class="fa-brands fa-tiktok card-bg-icon"></i>
             </a>
-
-            <!-- SEÇÃO: CLOUD REMOVIDA -->
 
             <!-- SEÇÃO: EDUCAÇÃO -->
             <div class="section-header header-ed">
