@@ -44,11 +44,11 @@
 
             /* Cores de Categorias */
             --color-gov: #facc15;      
-            --color-banking: #0ea5e9;  /* AZUL CÉU VIBRANTE */
+            --color-banking: #0ea5e9;  
             --color-shop: #ff6b00;     
             --color-media: #ec4899;   
             --color-social: #ffffff;  
-            --color-ed: #8b5cf6;       /* ROXO */
+            --color-ed: #8b5cf6;       
             --color-news: #3b82f6;    
             --color-music: #1DB954;
             --color-health: #ef4444;   
@@ -72,7 +72,7 @@
         #custom-bg-layer {
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh; 
-            z-index: -2;
+            z-index: -1;
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -81,22 +81,17 @@
             pointer-events: none;
         }
 
-        body.has-custom-bg .ambient-light {
-            opacity: 0;
-            transition: opacity 0.5s ease;
-        }
+        body.has-custom-bg .ambient-light { opacity: 0; transition: opacity 0.5s ease; }
+        body.has-custom-bg #custom-bg-layer { opacity: 1; }
 
-        body.has-custom-bg #custom-bg-layer {
-            opacity: 1;
-        }
-
-        /* --- BACKGROUND ORIGINAL CENTRALHUB --- */
+        /* --- BACKGROUND ORIGINAL CENTRALHUB (ORBS) --- */
         .ambient-light {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             z-index: -1;
             overflow: hidden;
             pointer-events: none;
+            opacity: 0; /* Desativado para priorizar o vídeo */
         }
 
         .orb {
@@ -113,6 +108,29 @@
 
         @keyframes floatOrb { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(60px, 90px) scale(1.1); } }
         @keyframes pulseOrb { 0%, 100% { opacity: 0.2; transform: translate(-50%, -50%) scale(0.9); } 50% { opacity: 0.35; transform: translate(-50%, -50%) scale(1.1); } }
+
+        /* --- VIDEO DE FUNDO --- */
+        #bg-video {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100vh;
+            object-fit: cover;
+            z-index: -3;
+            opacity: 0;
+            transition: opacity 1.5s ease;
+        }
+
+        .bg-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100vh;
+            background: rgba(0, 0, 0, 0.1); /* BAIXA OPACIDADE PARA O VÍDEO APARECER */
+            z-index: -2;
+            backdrop-filter: blur(0px);
+        }
+
+        body.has-custom-bg #bg-video { opacity: 0; pointer-events: none; }
+        body.has-custom-bg .bg-overlay { opacity: 0; pointer-events: none; }
+        body:not(.has-custom-bg) #bg-video { opacity: 1; }
+
 
         .container { max-width: 1400px; margin: 0 auto; padding: 0 2rem; position: relative; z-index: 1; padding-bottom: 2rem; }
 
@@ -641,10 +659,19 @@
 </head>
 <body>
 
-    <!-- CAMADA DE FUNDO PERSONALIZADO (SÓ LEITURA DO PORTAL) -->
+    <!-- 1. CAMADA DE VÍDEO DE FUNDO -->
+    <video id="bg-video" autoplay muted loop playsinline>
+        <source src="video1.mp4" type="video/mp4">
+        Seu navegador não suporta vídeos HTML5.
+    </video>
+    
+    <!-- 2. OVERLAY (BAIXA OPACIDADE) -->
+    <div class="bg-overlay"></div>
+
+    <!-- 3. CAMADA DE FUNDO PERSONALIZADO (SÓ LEITURA DO PORTAL) -->
     <div id="custom-bg-layer"></div>
 
-    <!-- FUNDO AMBIENTE ORIGINAL CENTRALHUB -->
+    <!-- 4. FUNDO AMBIENTE ORIGINAL CENTRALHUB (ORBS) -->
     <div class="ambient-light">
         <div class="orb orb-1"></div>
         <div class="orb orb-2"></div>
@@ -962,10 +989,17 @@
         const savedBg = localStorage.getItem('ldx_custom_bg');
         const savedType = localStorage.getItem('ldx_bg_type');
         const customBgLayer = document.getElementById('custom-bg-layer');
+        const bgVideo = document.getElementById('bg-video');
 
         if (savedBg && savedType === 'image') {
             customBgLayer.style.backgroundImage = `url('${savedBg}')`;
             document.body.classList.add('has-custom-bg');
+        } else {
+            document.body.classList.remove('has-custom-bg');
+            bgVideo.play().catch(error => {
+                console.log("Autoplay bloqueado pelo navegador até interação:", error);
+                document.body.style.backgroundColor = "#050507";
+            });
         }
 
         /* --- SISTEMA DE PESQUISA E FILTRO --- */
