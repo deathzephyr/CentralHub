@@ -68,7 +68,7 @@
 
         h1, h2, h3, .logo { font-family: 'Space Grotesk', sans-serif; }
 
-        /* --- BACKGROUND LAYER SYSTEM (CONEXÃO COM PORTAL LDX) --- */
+        /* --- BACKGROUND LAYER SYSTEM (APENAS IMAGEM PADRÃO) --- */
         #custom-bg-layer {
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh; 
@@ -76,61 +76,12 @@
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            opacity: 0;
-            transition: opacity 0.5s ease;
+            /* FUNDO PADRÃO DEFINIDO NO CSS: img2.jpeg */
+            background-image: url('img2.jpeg'); 
+            opacity: 1; 
+            transition: background-image 0.5s ease, opacity 0.5s ease;
             pointer-events: none;
         }
-
-        body.has-custom-bg .ambient-light { opacity: 0; transition: opacity 0.5s ease; }
-        body.has-custom-bg #custom-bg-layer { opacity: 1; }
-
-        /* --- BACKGROUND ORIGINAL CENTRALHUB (ORBS) --- */
-        .ambient-light {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -1;
-            overflow: hidden;
-            pointer-events: none;
-            opacity: 0; /* Desativado para priorizar o vídeo */
-        }
-
-        .orb {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(90px);
-            opacity: 0.4;
-            animation: floatOrb 25s infinite alternate ease-in-out;
-        }
-
-        .orb-1 { width: 500px; height: 500px; background: var(--color-gov); top: -150px; left: -150px; animation-duration: 30s; }
-        .orb-2 { width: 600px; height: 600px; background: var(--accent-primary); bottom: -150px; right: -150px; animation-duration: 35s; animation-delay: -5s; }
-        .orb-3 { width: 350px; height: 350px; background: var(--accent-cyan); top: 40%; left: 50%; transform: translate(-50%, -50%); opacity: 0.25; animation: pulseOrb 12s infinite ease-in-out; }
-
-        @keyframes floatOrb { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(60px, 90px) scale(1.1); } }
-        @keyframes pulseOrb { 0%, 100% { opacity: 0.2; transform: translate(-50%, -50%) scale(0.9); } 50% { opacity: 0.35; transform: translate(-50%, -50%) scale(1.1); } }
-
-        /* --- VIDEO DE FUNDO --- */
-        #bg-video {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100vh;
-            object-fit: cover;
-            z-index: -3;
-            opacity: 0;
-            transition: opacity 1.5s ease;
-        }
-
-        .bg-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100vh;
-            background: rgba(0, 0, 0, 0.1); /* BAIXA OPACIDADE PARA O VÍDEO APARECER */
-            z-index: -2;
-            backdrop-filter: blur(0px);
-        }
-
-        body.has-custom-bg #bg-video { opacity: 0; pointer-events: none; }
-        body.has-custom-bg .bg-overlay { opacity: 0; pointer-events: none; }
-        body:not(.has-custom-bg) #bg-video { opacity: 1; }
-
 
         .container { max-width: 1400px; margin: 0 auto; padding: 0 2rem; position: relative; z-index: 1; padding-bottom: 2rem; }
 
@@ -193,7 +144,7 @@
             white-space: nowrap;
         }
         
-        /* --- CORES ESPECÍFICAS PARA OS FILTROS --- */
+        /* Cores Específicas para os Filtros */
         #catDropdown .dropdown-option[data-cat-filter="gov"] { color: var(--color-gov); }
         #catDropdown .dropdown-option[data-cat-filter="banking"] { color: var(--color-banking); }
         #catDropdown .dropdown-option[data-cat-filter="shop"] { color: var(--color-shop); }
@@ -258,9 +209,7 @@
             border-radius: 22px;
             height: 48px;
             padding: 0 18px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            display: flex; align-items: center; gap: 10px;
             color: var(--text-main);
             cursor: pointer;
             transition: all 0.2s;
@@ -273,7 +222,7 @@
         .engine-btn:hover { background: rgba(255,255,255,0.08); }
         .engine-btn i { font-size: 1.1rem; transition: color 0.3s; }
         
-        /* Dropdown */
+        /* Dropdown Engine */
         .engine-dropdown {
             position: absolute;
             top: 120%; left: 0;
@@ -304,9 +253,7 @@
         .engine-option {
             padding: 10px 14px;
             border-radius: 10px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            display: flex; align-items: center; gap: 10px;
             color: var(--text-muted);
             text-decoration: none;
             transition: 0.2s;
@@ -317,7 +264,7 @@
         .engine-option:hover { background: rgba(255,255,255,0.08); color: white; }
         .engine-option.selected { background: rgba(255,255,255,0.05); color: white; font-weight: 500; }
         
-        /* Cores dos Ícones de Busca */
+        /* Cores dos Ícones */
         .icon-google { color: var(--color-google); }
         .icon-youtube { color: var(--color-youtube); }
         .icon-bing { color: var(--color-bing); }
@@ -327,7 +274,6 @@
         .icon-wiki { color: var(--color-wiki); }
         .icon-spotify { color: var(--color-spotify); }
 
-        /* Input */
         .search-input-container { flex: 1; position: relative; }
         .search-input { 
             width: 100%; background: transparent; border: none; 
@@ -428,7 +374,7 @@
         .section-title { font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; white-space: nowrap; display: flex; align-items: center; gap: 10px; }
         .section-line { height: 1px; width: 100%; background: linear-gradient(to right, rgba(255,255,255,0.2), transparent); }
 
-        /* Cores das Seções (Linhas e Títulos) */
+        /* Cores das Seções */
         .header-gov .section-title { color: var(--color-gov); } .header-gov .section-line { background: linear-gradient(to right, var(--color-gov), transparent); }
         .header-banking .section-title { color: var(--color-banking); } .header-banking .section-line { background: linear-gradient(to right, var(--color-banking), transparent); }
         .header-shop .section-title { color: var(--color-shop); } .header-shop .section-line { background: linear-gradient(to right, var(--color-shop), transparent); }
@@ -436,10 +382,10 @@
         .header-social .section-title { color: #ffffff; } .header-social .section-line { background: linear-gradient(to right, #ffffff, transparent); }
         .header-ed .section-title { color: var(--color-ed); } .header-ed .section-line { background: linear-gradient(to right, var(--color-ed), transparent); }
         .header-news .section-title { color: var(--color-news); } .header-news .section-line { background: linear-gradient(to right, var(--color-news), transparent); }
-        .header-health .section-title { color: var(--color-health); } .header-health .section-line { background: linear-gradient(to right, var(--color-health), transparent); }
         .header-music .section-title { color: var(--color-music); } .header-music .section-line { background: linear-gradient(to right, var(--color-music), transparent); }
+        .header-health .section-title { color: var(--color-health); } .header-health .section-line { background: linear-gradient(to right, var(--color-health), transparent); }
 
-        /* --- CARDS --- */
+        /* --- CARDS (PADRÃO) --- */
         .card {
             background: var(--glass-bg);
             border: 1px solid var(--glass-border);
@@ -467,16 +413,14 @@
             z-index: 5; 
         }
         .card:hover::after { left: 150%; transition: 0.8s ease-in-out; }
-        .card:hover { background: rgba(30, 30, 35, 0.8); border-color: rgba(255,255,255, 0.4); }
+        .card:hover { background: rgba(30, 30, 35, 0.8); border-color: rgba(255,255,255,0.4); }
         
-        /* Animação de Clique (Shrink) */
         .card.clicked {
             transform: scale(0.95);
             opacity: 0.8;
             box-shadow: none;
         }
         
-        /* Animação Ripple */
         .ripple {
             position: absolute;
             border-radius: 50%;
@@ -488,10 +432,7 @@
         }
 
         @keyframes ripple-anim {
-            to {
-                transform: scale(4);
-                opacity: 0;
-            }
+            to { transform: scale(4); opacity: 0; }
         }
 
         .card-bg-icon { position: absolute; right: -10px; bottom: -10px; font-size: 5rem; opacity: 0.04; transform: rotate(-15deg); pointer-events: none; transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); z-index: 1; }
@@ -543,7 +484,7 @@
         .card-icon .fa-scale-balanced { font-size: 1.3rem !important; }
         .card-icon .fa-building-columns { font-size: 1.25rem !important; }
         .card-icon .fa-bag-shopping { font-size: 1.2rem !important; }
-        .card-icon .fa-shield-cat { font-size: 1.3rem; }
+        .card-icon .fa-shield-cat { font-size: 1.3rem !important; }
         .card-icon .fa-brain { font-size: 1.25rem !important; }
         .card-icon .fa-music { font-size: 1.25rem !important; }
         .card-icon .fa-heart-pulse { font-size: 1.3rem !important; }
@@ -551,7 +492,6 @@
         .card-icon .fa-language { font-size: 1.2rem !important; } /* Duolingo */
         .card-icon .fa-briefcase { font-size: 1.25rem !important; } /* Bradesco */
         .card-icon .fa-microphone-lines { font-size: 1.3rem !important; } /* TED */
-        .card-icon .fa-code { font-size: 1.3rem !important; } /* Coddy */
         
         /* Tamanhos específicos para marcas */
         .card-icon .fa-globe { font-size: 1.25rem !important; transform: scale(1.1); } /* Globo */
@@ -590,15 +530,44 @@
         .card[data-cat="music"] .card-icon { color: var(--color-music); text-shadow: 0 0 15px rgba(29, 185, 84, 0.2); }
         .card[data-cat="music"]:hover { box-shadow: 0 20px 40px -10px rgba(29, 185, 84, 0.3), 0 0 0 1px rgba(29, 185, 84, 0.1); border-color: rgba(29, 185, 84, 0.3); }
 
-        /* Cores Específicas para Ícones (Forçar) */
+        /* Cores Específicas para Ícones */
         .icon-discord { color: var(--color-discord); }
         .icon-whatsapp { color: var(--color-whatsapp); }
         .icon-shopee { color: var(--color-shopee); }
-        .icon-receita { color: var(--color-gov) !important; } 
+        .icon-receita { color: var(--color-gov); } 
         .icon-netflix { color: var(--color-netflix); } /* VERMELHO FORÇADO */
         .icon-tiktok { color: var(--color-tiktok); }
         .icon-globo { color: var(--color-globo); }
         .icon-uol { color: var(--color-uol); }
+
+        /* --- ESTILOS SINCRONIZADOS (TRANSPARENT E INVISIBLE) --- */
+        /* Copiado e adaptado de NexusHub/GameHub para garantir sincronização */
+        body.transparent-mode .card {
+            background: rgba(0, 0, 0, 0.25); 
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(12px);
+        }
+        body.transparent-mode .card:hover {
+            background: rgba(0, 0, 0, 0.4);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        body.invisible-mode .card {
+            background: transparent;
+            backdrop-filter: none; 
+            border: 1px solid rgba(255, 255, 255, 0.15); 
+            box-shadow: none;
+        }
+        body.invisible-mode .card:hover {
+            background: transparent;
+            border-color: rgba(255, 255, 255, 0.4);
+            box-shadow: 0 0 30px rgba(0,0,0,0.5); 
+            transform: translateY(-5px) scale(1.02); 
+        }
+        body.invisible-mode .card h3, 
+        body.invisible-mode .card p {
+            text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+        }
 
         /* --- FOOTER --- */
         footer { 
@@ -620,9 +589,7 @@
             .container { padding: 0 1rem; } 
             
             .search-wrapper { width: 100%; padding: 0; }
-            .engine-btn {
-                width: 44px; padding: 0; justify-content: center; border-radius: 50%; margin-right: 5px;
-            }
+            .engine-btn { width: 44px; padding: 0; justify-content: center; border-radius: 50%; margin-right: 5px; }
             #currentEngineName, .engine-btn .fa-chevron-down { display: none !important; }
 
             .engine-dropdown { width: 100%; left: 0; top: 130%; border-radius: 12px; max-height: 40vh; }
@@ -659,32 +626,14 @@
 </head>
 <body>
 
-    <!-- 1. CAMADA DE VÍDEO DE FUNDO -->
-    <video id="bg-video" autoplay muted loop playsinline>
-        <source src="video1.mp4" type="video/mp4">
-        Seu navegador não suporta vídeos HTML5.
-    </video>
-    
-    <!-- 2. OVERLAY (BAIXA OPACIDADE) -->
-    <div class="bg-overlay"></div>
-
-    <!-- 3. CAMADA DE FUNDO PERSONALIZADO (SÓ LEITURA DO PORTAL) -->
+    <!-- FUNDO PADRÃO (img2.jpeg) -->
     <div id="custom-bg-layer"></div>
-
-    <!-- 4. FUNDO AMBIENTE ORIGINAL CENTRALHUB (ORBS) -->
-    <div class="ambient-light">
-        <div class="orb orb-1"></div>
-        <div class="orb orb-2"></div>
-        <div class="orb orb-3"></div>
-    </div>
 
     <div class="container">
         <header>
             <div class="logo"><i class="fa-solid fa-globe"></i> LDX</div>
             
-            <!-- Controles do Header -->
             <div class="header-controls">
-                
                 <!-- BOTÃO HOME -->
                 <a href="https://deathzephyr.github.io/PortaisLDX/" class="header-btn" title="Portal Principal" target="_self">
                     <i class="fa-solid fa-house"></i>
@@ -715,7 +664,6 @@
                         <div class="dropdown-option" data-cat-filter="shop">Lojas</div>
                         <div class="dropdown-option" data-cat-filter="media">Mídia</div>
                         <div class="dropdown-option" data-cat-filter="social">Redes Sociais</div>
-                        <!-- Removida opção Cloud -->
                         <div class="dropdown-option" data-cat-filter="ed">Educação</div>
                         <div class="dropdown-option" data-cat-filter="health">Saúde</div>
                     </div>
@@ -766,9 +714,7 @@
                 <!-- Dropdown de Histórico -->
                 <div class="search-history" id="searchHistory">
                     <div class="history-label">Recentes</div>
-                    <div id="historyList">
-                        <!-- Itens inseridos via JS -->
-                    </div>
+                    <div id="historyList"></div>
                 </div>
             </div>
         </section>
@@ -828,7 +774,7 @@
             <a href="https://www.amazon.com.br/" target="_blank" class="card" data-cat="shop">
                 <div class="card-content"><div class="card-icon"><i class="fa-brands fa-amazon"></i></div><h3>Amazon</h3><p>Tudo pra você</p></div><i class="fa-brands fa-amazon card-bg-icon"></i>
             </a>
-            <a href="https://www.magazineluiza.com.br/" target="_blank" class="card" data-cat="shop">
+            <a href="https://www.magazineluza.com.br/" target="_blank" class="card" data-cat="shop">
                 <div class="card-content"><div class="card-icon"><i class="fa-solid fa-m"></i></div><h3>Magalu</h3><p>Livros & Quadrinhos</p></div><i class="fa-solid fa-m card-bg-icon"></i>
             </a>
             <a href="https://www.americanas.com.br/" target="_blank" class="card" data-cat="shop">
@@ -895,7 +841,7 @@
                 <div class="card-content"><div class="card-icon"><i class="fa-solid fa-brain"></i></div><h3>Brainly</h3><p>Tarefas</p></div><i class="fa-solid fa-brain card-bg-icon"></i>
             </a>
             <a href="https://duolingo.com/" target="_blank" class="card" data-cat="ed">
-                <div class="card-content"><div class="card-icon"><i class="fa-solid fa-language"></i></div><h3>Duolingo</h3><p>Línguagens</p></div><i class="fa-solid fa-language card-bg-icon"></i>
+                <div class="card-content"><div class="card-icon"><i class="fa-solid fa-language"></i></div><h3>Duolingo</h3><p>Línguas</p></div><i class="fa-solid fa-language card-bg-icon"></i>
             </a>
             <a href="https://www.coursera.com/" target="_blank" class="card" data-cat="ed">
                 <div class="card-content"><div class="card-icon"><i class="fa-solid fa-graduation-cap"></i></div><h3>Coursera</h3><p>Cursos</p></div><i class="fa-solid fa-graduation-cap card-bg-icon"></i>
@@ -908,7 +854,7 @@
 
             <!-- Adicionado TED Talks -->
             <a href="https://www.ted.com/" target="_blank" class="card" data-cat="ed">
-                <div class="card-content"><div class="card-icon"><i class="fa-solid fa-microphone-lines"></i></div><h3>TED Talks</h3><p>Ideas Worth Spreading</p></div><i class="fa-solid fa-microphone-lines card-bg-icon"></i>
+                <div class="card-content"><div class="card-icon"><i class="fa-solid fa-microphone-lines"></i></div><h3>TED Talks</h3><p>Ideias Worth Spreading</p></div><i class="fa-solid fa-microphone-lines card-bg-icon"></i>
             </a>
 
             <!-- SEÇÃO: SAÚDE & BEM-ESTAR -->
@@ -943,16 +889,16 @@
                 <div class="card-content"><div class="card-icon icon-globo"><i class="fa-solid fa-globe"></i></div><h3>Globo</h3><p>Mundo</p></div><i class="fa-solid fa-globe card-bg-icon"></i>
             </a>
             <a href="https://folha.uol.com.br/" target="_blank" class="card" data-cat="news">
-                <div class="card-content"><div class="card-icon"><i class="fa-solid fa-newspaper"></i></div><h3>Folha</h3><p>Brazil</p></div><i class="fa-solid fa-newspaper card-bg-icon"></i>
+                <div class="card-content"><div class="card-icon"><i class="fa-solid fa-newspaper"></i></div><h3>Folha</h3><p>Brasil</p></div><i class="fa-solid fa-newspaper card-bg-icon"></i>
             </a>
             <a href="https://www.uol.com.br/" target="_blank" class="card" data-cat="news">
                 <div class="card-content"><div class="card-icon icon-uol"><i class="fa-solid fa-layer-group"></i></div><h3>UOL</h3><p>Notícias</p></div><i class="fa-solid fa-layer-group card-bg-icon"></i>
             </a>
-            <a href="https://www.bbc.com/portuguese" target="_blank" class="card" data-cat="news">
-                <div class="card-content"><div class="card-icon"><i class="fa-solid fa-earth-americas"></i></div><h3>BBC Brasil</h3><p>Internacional</p></div><i class="fa-solid fa-earth-americas card-bg-icon"></i>
+            <a href="https://www.bbc.com/" target="_blank" class="card" data-cat="news">
+                <div class="card-content"><div class="card-icon"><i class="fa-solid fa-broadcast-tower"></i></div><h3>BBC Brasil</h3><p>Jornalismo TV</p></div><i class="fa-solid fa-broadcast-tower card-bg-icon"></i>
             </a>
             <a href="https://www.cnnbrasil.com.br/" target="_blank" class="card" data-cat="news">
-                <div class="card-content"><div class="card-icon"><i class="fa-solid fa-broadcast-tower"></i></div><h3>CNN Brasil</h3><p>Jornalismo TV</p></div><i class="fa-solid fa-broadcast-tower card-bg-icon"></i>
+                <div class="card-content"><div class="card-icon"><i class="fa-solid fa-earth-americas"></i></div><h3>CNN Brasil</h3><p>Jornalismo TV</p></div><i class="fa-solid fa-earth-americas card-bg-icon"></i>
             </a>
 
             <!-- SEÇÃO: NUVEM & MÚSICA -->
@@ -985,21 +931,27 @@
     </div>
 
     <script>
-        /* --- CONEXÃO DE FUNDO (APENAS LEITURA DO PORTAL LDX) --- */
-        const savedBg = localStorage.getItem('ldx_custom_bg');
-        const savedType = localStorage.getItem('ldx_bg_type');
-        const customBgLayer = document.getElementById('custom-bg-layer');
-        const bgVideo = document.getElementById('bg-video');
+        /* --- SINCRONIZAÇÃO COM PORTAL LDX --- */
+        function initSyncedSettings() {
+            const bgLayer = document.getElementById('custom-bg-layer');
+            
+            // 1. Sincronizar Fundo
+            const savedBg = localStorage.getItem('ldx_custom_bg');
+            if (savedBg) {
+                bgLayer.style.backgroundImage = `url('${savedBg}')`;
+            } else {
+                // Se não tiver customizado, usa o padrão (já definido no CSS: img2.jpeg)
+                bgLayer.style.backgroundImage = `url('img2.jpeg')`;
+            }
+            bgLayer.style.opacity = '1'; 
 
-        if (savedBg && savedType === 'image') {
-            customBgLayer.style.backgroundImage = `url('${savedBg}')`;
-            document.body.classList.add('has-custom-bg');
-        } else {
-            document.body.classList.remove('has-custom-bg');
-            bgVideo.play().catch(error => {
-                console.log("Autoplay bloqueado pelo navegador até interação:", error);
-                document.body.style.backgroundColor = "#050507";
-            });
+            // 2. Sincronizar Estilo dos Cards
+            const savedStyle = localStorage.getItem('ldx_card_style');
+            if (savedStyle === 'transparent') {
+                document.body.classList.add('transparent-mode');
+            } else if (savedStyle === 'invisible') {
+                document.body.classList.add('invisible-mode');
+            }
         }
 
         /* --- SISTEMA DE PESQUISA E FILTRO --- */
@@ -1025,7 +977,6 @@
         const searchHistory = document.getElementById('searchHistory');
         const historyList = document.getElementById('historyList');
 
-        /* --- LÓGICA AVANÇADA DE FILTRAGEM (Cards + Headers) --- */
         const cards = document.querySelectorAll('.card');
         const headers = document.querySelectorAll('.section-header');
 
@@ -1089,7 +1040,7 @@
         searchInput.addEventListener('input', filterCards);
 
 
-        // --- LÓGICA RESTANTE DA PESQUISA (Web) ---
+        // --- LÓGICA RESTANTE DA PESQUISA (WEB) ---
         engineBtn.addEventListener('click', (e) => {
             e.stopPropagation();
             engineDropdown.classList.toggle('active');
@@ -1188,7 +1139,7 @@
             voiceBtn.style.display = 'none'; 
         }
 
-        /* --- CONTROLE DE GRID (MOBILE E PC) --- */
+        /* --- CONTROLE DE GRID --- */
         const gridBtn = document.getElementById('gridBtn');
         const gridDropdown = document.getElementById('gridDropdown');
         const gridOptions = document.querySelectorAll('#gridDropdown .dropdown-option');
@@ -1215,7 +1166,7 @@
                 bentoGrid.style.gridTemplateColumns = '';
                 saveGridPreference('auto');
             } else {
-                bentoGrid.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
+                bentoGrid.style.gridTemplateColumns = `repeat(${cols},1fr)`;
                 if(cols != 'auto') bentoGrid.classList.add(`cols-${cols}`);
                 saveGridPreference(cols);
             }
@@ -1231,12 +1182,10 @@
             let key;
             if (window.innerWidth <= 600) {
                 key = 'centralHub_mobileCols';
-                savedCols = localStorage.getItem(key);
-                if(!savedCols) savedCols = '2';
+                savedCols = localStorage.getItem(key) || '2';
             } else {
                 key = 'centralHub_desktopCols';
-                savedCols = localStorage.getItem(key);
-                if(!savedCols) savedCols = 'auto';
+                savedCols = localStorage.getItem(key) || 'auto';
             }
             const optToSelect = document.querySelector(`#gridDropdown .dropdown-option[data-cols="${savedCols}"]`);
             if(optToSelect) optToSelect.classList.add('selected');
@@ -1281,7 +1230,7 @@
         /* --- EFEITO RIPPLE DE CLIQUE --- */
         cardElements.forEach(card => {
             card.addEventListener('click', function(e) {
-                if (e.button === 0) {
+                if(e.button === 0) {
                     e.preventDefault();
                     this.classList.add('clicked');
 
@@ -1312,6 +1261,8 @@
             });
         });
 
+        // Inicializa Sincronização
+        document.addEventListener('DOMContentLoaded', initSyncedSettings);
     </script>
 </body>
 </html>
