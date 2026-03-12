@@ -76,8 +76,8 @@
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            /* FUNDO PADRÃO DEFINIDO NO CSS: img2.jpeg */
-            background-image: url('img2.jpeg'); 
+            /* FUNDO PADRÃO DEFINIDO NO CSS: img2.jpg */
+            background-image: url('img2.jpg'); 
             opacity: 1; 
             transition: background-image 0.5s ease, opacity 0.5s ease;
             pointer-events: none;
@@ -626,7 +626,7 @@
 </head>
 <body>
 
-    <!-- FUNDO PADRÃO (img2.jpeg) -->
+    <!-- FUNDO PADRÃO (img2.jpg) -->
     <div id="custom-bg-layer"></div>
 
     <div class="container">
@@ -940,8 +940,8 @@
             if (savedBg) {
                 bgLayer.style.backgroundImage = `url('${savedBg}')`;
             } else {
-                // Se não tiver customizado, usa o padrão (já definido no CSS: img2.jpeg)
-                bgLayer.style.backgroundImage = `url('img2.jpeg')`;
+                // Se não tiver customizado, usa o padrão (já definido no CSS: img2.jpg)
+                bgLayer.style.backgroundImage = `url('img2.jpg')`;
             }
             bgLayer.style.opacity = '1'; 
 
@@ -1266,3 +1266,4 @@
     </script>
 </body>
 </html>
+
